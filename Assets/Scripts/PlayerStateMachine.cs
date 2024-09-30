@@ -14,6 +14,7 @@ public class PlayerStateMachine : StateMachine
     public Animator Animator { get; private set; }
     public CharacterController Controller { get; private set; }
 
+    public float SprintSpeed { get; private set; } = 8f;
     private void Start()
     {
         MainCamera = Camera.main.transform;

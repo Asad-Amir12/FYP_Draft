@@ -28,7 +28,7 @@ public class InputReader : MonoBehaviour, Controls.IPlayerActions
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        MouseDelta = context.ReadValue<Vector2>();
+        MouseDelta = context.ReadValue<Vector2>() * 5;
     }
 
     public void OnMove(InputAction.CallbackContext context)

@@ -11,6 +11,7 @@ public class PlayerMoveState : PlayerBaseState
 
     public override void Enter()
     {
+        Debug.Log("enteredMoveState");
         stateMachine.Velocity.y = Physics.gravity.y;
 
         stateMachine.Animator.CrossFadeInFixedTime(MoveBlendTreeHash, CrossFadeDuration);
@@ -24,7 +25,9 @@ public class PlayerMoveState : PlayerBaseState
         {
             stateMachine.SwitchState(new PlayerFallState(stateMachine));
         }
-
+        if(stateMachine.InputReader.MoveComposite.magnitude !=0 && Input.GetKey(KeyCode.LeftShift)){
+            stateMachine.SwitchState(new PlayerSprintState(stateMachine));
+        }
         CalculateMoveDirection();
         FaceMoveDirection();
         Move();
@@ -39,6 +42,16 @@ public class PlayerMoveState : PlayerBaseState
 
     private void SwitchToJumpState()
     {
-        stateMachine.SwitchState(new PlayerJumpState(stateMachine));
+        if (stateMachine.InputReader.MoveComposite.magnitude != 0f)
+        {
+
+            stateMachine.SwitchState(new PlayerJumpState(stateMachine));
+        }
+        else
+        {
+
+            stateMachine.SwitchState(new PlayerIdleJumpState(stateMachine));
+        }
+
     }
 }

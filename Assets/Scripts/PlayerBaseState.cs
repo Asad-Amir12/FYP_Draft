@@ -43,4 +43,6 @@ public abstract class PlayerBaseState : State
         stateMachine.Controller.Move(stateMachine.Velocity * Time.deltaTime);
     }
 
+    
+
 }

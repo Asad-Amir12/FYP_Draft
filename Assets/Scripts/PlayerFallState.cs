@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerFallState : PlayerBaseState
 {
     private readonly int FallHash = Animator.StringToHash("Fall");
-    private const float CrossFadeDuration = 0.1f;
+    private const float CrossFadeDuration = 0.5f;
 
     public PlayerFallState(PlayerStateMachine stateMachine) : base(stateMachine) { }
 
