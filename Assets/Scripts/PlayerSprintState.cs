@@ -19,6 +19,7 @@ public class PlayerSprintState : PlayerBaseState
        stateMachine.Animator.Play("Sprint");
 
         stateMachine.InputReader.OnJumpPerformed += SwitchToJumpState;
+        stateMachine.InputReader.OnRollPerformed += SwitchToRollState;
     }
 
     public override void Tick()
@@ -41,6 +42,7 @@ public class PlayerSprintState : PlayerBaseState
     public override void Exit()
     {
         stateMachine.InputReader.OnJumpPerformed -= SwitchToJumpState;
+        stateMachine.InputReader.OnRollPerformed -= SwitchToRollState;
     }
 
     private void SwitchToJumpState()
@@ -57,4 +59,9 @@ public class PlayerSprintState : PlayerBaseState
         }
 
     }
+
+     private void SwitchToRollState(){
+
+        stateMachine.SwitchState(new PlayerRollState(stateMachine));
+     }
 }

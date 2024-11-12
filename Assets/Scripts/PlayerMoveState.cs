@@ -17,6 +17,7 @@ public class PlayerMoveState : PlayerBaseState
         stateMachine.Animator.CrossFadeInFixedTime(MoveBlendTreeHash, CrossFadeDuration);
 
         stateMachine.InputReader.OnJumpPerformed += SwitchToJumpState;
+        stateMachine.InputReader.OnRollPerformed += SwitchToRollState;
     }
 
     public override void Tick()
@@ -38,6 +39,7 @@ public class PlayerMoveState : PlayerBaseState
     public override void Exit()
     {
         stateMachine.InputReader.OnJumpPerformed -= SwitchToJumpState;
+        stateMachine.InputReader.OnRollPerformed -= SwitchToRollState;
     }
 
     private void SwitchToJumpState()
@@ -54,4 +56,9 @@ public class PlayerMoveState : PlayerBaseState
         }
 
     }
+
+     private void SwitchToRollState(){
+
+        stateMachine.SwitchState(new PlayerRollState(stateMachine));
+     }
 }

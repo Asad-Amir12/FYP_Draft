@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +10,7 @@ public class InputReader : MonoBehaviour, Controls.IPlayerActions
 
     public Action OnJumpPerformed;
 
+    public Action OnRollPerformed;
     private Controls controls;
 
     private void OnEnable()
@@ -36,11 +38,50 @@ public class InputReader : MonoBehaviour, Controls.IPlayerActions
         MoveComposite = context.ReadValue<Vector2>();
     }
 
+            bool pressed_once=false;
+            float firstPressTime = 0f;
+            float delayBetweenPresses = 0.25f;
+            float lastPressdedTime =0f;
+            bool roll = false;
     public void OnJump(InputAction.CallbackContext context)
     {
         if (!context.performed)
             return;
+        
+        
+        if(context.performed){
+            roll = false;
+            Invoke(nameof(resetPress), 0.25f);
+            if(!pressed_once){
+                pressed_once=true;
+                firstPressTime = Time.time;
+            }
+            else if(pressed_once){
+                bool isDoublePress = Time.time - lastPressdedTime <= delayBetweenPresses;
 
-        OnJumpPerformed?.Invoke();
+                if(isDoublePress){
+                    pressed_once = false;
+                    OnRollPerformed?.Invoke();
+                    roll = true;
+                }
+            }
+            lastPressdedTime = Time.time;
+        }
+    } 
+
+    private void resetPress(){
+        pressed_once = false;
+        Debug.Log("resetting the bool counter");
+        if(!roll){
+            OnJumpPerformed?.Invoke();
+        }
     }
+    public void OnRoll(InputAction.CallbackContext context){
+        // if(!context.performed)
+        //     return;
+        
+        // OnRollPerformed?.Invoke();
+    }
+
+    
 }
