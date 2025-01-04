@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,21 @@ public class LoadingScene : MonoBehaviour
 
     [SerializeField] private GameObject loadingScreen;
     [SerializeField] Image loadingFill;
-    [SerializeField] private GameObject mainMenuButtons;
+    //[SerializeField] private GameObject mainMenuButtons;
+
+    public static event Action OnGameSceneLoaded;
+    public static event Action OnReturnToMainMenu;
+
+    public static LoadingScene Instance;
+    public void Awake(){
+        if(Instance == null){
+            Instance = this;
+        }
+        else{
+            Destroy(this.gameObject);
+        }
+        DontDestroyOnLoad(this.gameObject);
+    }
 
     IEnumerator LoadLevelAsync(int sceneIndex)
     {
@@ -22,13 +37,20 @@ public class LoadingScene : MonoBehaviour
             loadingFill.fillAmount = progress;
             yield return null;
         }
-        
+        loadingScreen.SetActive(false);
+        if(sceneIndex == 2){
+             OnGameSceneLoaded?.Invoke();
+        }
+        if(SceneManager.GetActiveScene().buildIndex == 1 && sceneIndex == 1){
+            OnReturnToMainMenu?.Invoke();
+        }
+       
     }
     public void LoadScene(int sceneIndex)
     {
         //gameObject.SetActive(true);
         loadingScreen.SetActive(true);
-        mainMenuButtons.SetActive(false);
+       // mainMenuButtons.SetActive(false);
         StartCoroutine(nameof(LoadLevelAsync), sceneIndex);
         
     }

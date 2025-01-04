@@ -4,28 +4,73 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenuUI : MonoBehaviour
-{
-    public static MainMenuUI _Instance;
+{   
+    
+    public static MainMenuUI Instance;
+  
+    public GameObject menu;
+    private InputReader inputReader;
 
-    public static MainMenuUI Instance
-    {
-        get
-        {
-            if (_Instance == null)
-            {
-                Debug.LogError("MainMenuUI is NULL");
-            }
-            return _Instance;
-        }
-    }
-
+    private bool GamePaused = false;
+    [SerializeField] private GameObject inGameMenu;
+   
+    
+  
    
 
     private void Awake()
     {
-        _Instance = this;
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+        DontDestroyOnLoad(this.gameObject);
+        LoadingScene.OnGameSceneLoaded += OnGameSceneLoaded;
+        LoadingScene.OnReturnToMainMenu += OnReturnToMainMenu;
+        
+    }
+    public void OnGameSceneLoaded()
+    {
+        inputReader = FindObjectOfType<InputReader>();
+       // inGameMenuParent =  new();
+      //  inGameMenuParent.SetActive(false);
+         menu = Instantiate(inGameMenu);
+        if(inputReader != null)
+        {
+            inputReader.OnMenuControlsPerformed += OnMenuControlsPerformed;
+        }
     }
 
+    public void OnMenuControlsPerformed()
+    {
+        menu.SetActive(!menu.activeSelf);
+        GamePaused= menu.activeSelf;
+        if(inputReader.GamePaused)
+        {
+            inputReader.DisableControls();
+            //Time.timeScale = 0;
+        }
+        else
+        {
+            inputReader.EnableControls();
+            //Time.timeScale = 1;
+        }
+    }
+
+    public void OnReturnToMainMenu()
+    {
+        if(menu != null)
+             Destroy(menu);
+
+            if(inputReader != null)
+                inputReader.OnMenuControlsPerformed -= OnMenuControlsPerformed;
+    }
+
+  
 
     // Start is called before the first frame update
     void Start()
