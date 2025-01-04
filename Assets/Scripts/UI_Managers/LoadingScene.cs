@@ -17,8 +17,8 @@ public class LoadingScene : MonoBehaviour
         
         while (!operation.isDone)
         {
-            float progress = Mathf.Clamp01(operation.progress / .9f);
-            Debug.Log("loadingProgress: " + progress);
+            float progress = Mathf.Clamp01(operation.progress / 0.9f);
+            //Debug.Log("loadingProgress: " + progress);
             loadingFill.fillAmount = progress;
             yield return null;
         }
