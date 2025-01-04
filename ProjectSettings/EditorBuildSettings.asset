@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/MainMenuScene.unity
+    guid: 59b86ac448217ce418ed3130b088da99
+  - enabled: 1
+    path: Assets/Cowboy_RIO/Scene/URP_Medieval_Village.unity
+    guid: a4f22bbf6bc2d4846a6fb8b06a80f491
   m_configObjects: {}
