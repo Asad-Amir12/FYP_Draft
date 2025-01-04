@@ -38,7 +38,10 @@ public class MainMenuUI : MonoBehaviour
         inputReader = FindObjectOfType<InputReader>();
        // inGameMenuParent =  new();
       //  inGameMenuParent.SetActive(false);
+    
          menu = Instantiate(inGameMenu);
+         // ? Making sure it is off
+         menu.SetActive(false);
         if(inputReader != null)
         {
             inputReader.OnMenuControlsPerformed += OnMenuControlsPerformed;
