@@ -12,11 +12,18 @@ public class PlayerInputManager : MonoBehaviour
 
     void Awake(){
         inputReader.OnMenuControlsPerformed += OnMenuControlsPerformed;
+        EventBus.GameResumed += OnResume;
+    }
+
+    private void OnResume(){
+        freeLook.enabled = true;
     }
 
     private void OnMenuControlsPerformed()
     {
+       
         freeLook.enabled = !inputReader.GamePaused;
+        
     }
 
 

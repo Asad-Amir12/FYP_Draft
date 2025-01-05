@@ -8,8 +8,9 @@ using UnityEngine.UI;
 public class LoadingScene : MonoBehaviour
 {
 
-    [SerializeField] private GameObject loadingScreen;
+    
     [SerializeField] Image loadingFill;
+    [SerializeField] GameObject loadingCanvas;
     //[SerializeField] private GameObject mainMenuButtons;
 
     public static event Action OnGameSceneLoaded;
@@ -19,11 +20,12 @@ public class LoadingScene : MonoBehaviour
     public void Awake(){
         if(Instance == null){
             Instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
         else{
             Destroy(this.gameObject);
         }
-        DontDestroyOnLoad(this.gameObject);
+        
     }
 
     IEnumerator LoadLevelAsync(int sceneIndex)
@@ -37,7 +39,7 @@ public class LoadingScene : MonoBehaviour
             loadingFill.fillAmount = progress;
             yield return null;
         }
-        loadingScreen.SetActive(false);
+        loadingCanvas.SetActive(false);
         if(sceneIndex == 2){
              OnGameSceneLoaded?.Invoke();
         }
@@ -49,7 +51,7 @@ public class LoadingScene : MonoBehaviour
     public void LoadScene(int sceneIndex)
     {
         //gameObject.SetActive(true);
-        loadingScreen.SetActive(true);
+        loadingCanvas.SetActive(true);
        // mainMenuButtons.SetActive(false);
         StartCoroutine(nameof(LoadLevelAsync), sceneIndex);
         

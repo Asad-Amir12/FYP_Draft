@@ -117,5 +117,14 @@ public class InputReader : MonoBehaviour, Controls.IPlayerActions
         controls.Player.Look.Enable();
     }
 
+    public void ToggleControls(bool state){
+        if(state){
+            EnableControls();
+        }
+        else{
+            DisableControls();
+        }
+    }
+
 
 }

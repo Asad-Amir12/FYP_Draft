@@ -23,23 +23,34 @@ public class MainMenuUI : MonoBehaviour
         if(Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
             Destroy(this.gameObject);
         }
-        DontDestroyOnLoad(this.gameObject);
+        
         LoadingScene.OnGameSceneLoaded += OnGameSceneLoaded;
         LoadingScene.OnReturnToMainMenu += OnReturnToMainMenu;
+        EventBus.GameResumed += OnMenuControlsPerformed;
         
     }
+
+    public void LoadGameScene(int index){
+        LoadingScene.Instance.LoadScene(index);
+    }
+
     public void OnGameSceneLoaded()
     {
         inputReader = FindObjectOfType<InputReader>();
+        
        // inGameMenuParent =  new();
       //  inGameMenuParent.SetActive(false);
-    
+        if(menu){
+            Destroy(menu);
+        }
          menu = Instantiate(inGameMenu);
+        
          // ? Making sure it is off
          menu.SetActive(false);
         if(inputReader != null)
@@ -50,23 +61,28 @@ public class MainMenuUI : MonoBehaviour
 
     public void OnMenuControlsPerformed()
     {
+      
         menu.SetActive(!menu.activeSelf);
         GamePaused= menu.activeSelf;
-        if(inputReader.GamePaused)
+        inputReader.GamePaused = GamePaused;
+      
+        if(GamePaused)
         {
             inputReader.DisableControls();
-            //Time.timeScale = 0;
+            Time.timeScale = 0;
         }
         else
         {
             inputReader.EnableControls();
-            //Time.timeScale = 1;
+            Time.timeScale = 1;
         }
     }
 
     public void OnReturnToMainMenu()
     {
+        EventBus.GameResumed -= OnMenuControlsPerformed;
         if(menu != null)
+           
              Destroy(menu);
 
             if(inputReader != null)
