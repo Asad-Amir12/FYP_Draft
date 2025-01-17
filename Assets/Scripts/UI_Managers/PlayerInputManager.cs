@@ -13,15 +13,20 @@ public class PlayerInputManager : MonoBehaviour
     void Awake(){
         inputReader.OnMenuControlsPerformed += OnMenuControlsPerformed;
         EventBus.GameResumed += OnResume;
+        
     }
 
     private void OnResume(){
+         freeLook = FindObjectOfType<Cinemachine.CinemachineFreeLook>();
         freeLook.enabled = true;
     }
 
     private void OnMenuControlsPerformed()
     {
-       
+         freeLook = FindObjectOfType<Cinemachine.CinemachineFreeLook>();
+         if(!freeLook){
+             Debug.LogError("FreeLook is NULL");
+         }
         freeLook.enabled = !inputReader.GamePaused;
         
     }

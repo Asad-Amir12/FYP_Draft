@@ -34,8 +34,10 @@ public class InGameMenu : MonoBehaviour
         Debug.Log("Resume Button Clicked EVent Invoked");
     }
     public void OnReturnToMainMenuButtonCliked(){
-    
+         Destroy(this.gameObject);
        LoadingScene.Instance.LoadScene(1);
+       EventBus.TriggerReturnToMainMenu();
+       
        
     }
     // Start is called before the first frame update
