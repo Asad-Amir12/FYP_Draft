@@ -8,7 +8,8 @@ public class PlayerSprintState : PlayerBaseState
     private readonly int SprintHash = Animator.StringToHash("Sprint");
     private const float AnimationDampTime = 0.1f;
     private const float CrossFadeDuration = 0.1f;
-
+    private float coyoteTime = 0.4f; // Duration of coyote time
+    private float coyoteTimer; // Timer to track coyote time
     public PlayerSprintState(PlayerStateMachine stateMachine) : base(stateMachine) { }
 
     public override void Enter()
@@ -16,7 +17,7 @@ public class PlayerSprintState : PlayerBaseState
         Debug.Log("entered sprint state");
         stateMachine.Velocity.y = Physics.gravity.y;
 
-       stateMachine.Animator.Play("Sprint");
+        stateMachine.Animator.Play("Sprint");
 
         stateMachine.InputReader.OnJumpPerformed += SwitchToJumpState;
         stateMachine.InputReader.OnRollPerformed += SwitchToRollState;
@@ -28,15 +29,28 @@ public class PlayerSprintState : PlayerBaseState
         // {
         //     stateMachine.SwitchState(new PlayerFallState(stateMachine));
         // }
-        Debug.Log(stateMachine.Velocity.y);
-        if(stateMachine.InputReader.MoveComposite.magnitude !=0 && !Input.GetKey(KeyCode.LeftShift)){
+        if (!stateMachine.Controller.isGrounded)
+        {
+            coyoteTimer += Time.deltaTime; // Increment the coyote timer
+            if (coyoteTimer >= coyoteTime) // Check if coyote time has expired
+            {
+                stateMachine.SwitchState(new PlayerFallState(stateMachine));
+            }
+        }
+        else
+        {
+            coyoteTimer = 0f; // Reset the timer if grounded
+        }
+
+        if (stateMachine.InputReader.MoveComposite.magnitude != 0 && !Input.GetKey(KeyCode.LeftShift))
+        {
             stateMachine.SwitchState(new PlayerMoveState(stateMachine));
         }
-        CalculateMoveDirection();
+        CalculateSprintDirection();
         FaceMoveDirection();
         Move();
 
-       // stateMachine.Animator.SetFloat(SprintSpeedHash, stateMachine.InputReader.MoveComposite.sqrMagnitude > 0f ? 1f : 0f, AnimationDampTime, Time.deltaTime);
+        // stateMachine.Animator.SetFloat(SprintSpeedHash, stateMachine.InputReader.MoveComposite.sqrMagnitude > 0f ? 1f : 0f, AnimationDampTime, Time.deltaTime);
     }
 
     public override void Exit()
@@ -60,8 +74,9 @@ public class PlayerSprintState : PlayerBaseState
 
     }
 
-     private void SwitchToRollState(){
+    private void SwitchToRollState()
+    {
 
         stateMachine.SwitchState(new PlayerRollState(stateMachine));
-     }
+    }
 }

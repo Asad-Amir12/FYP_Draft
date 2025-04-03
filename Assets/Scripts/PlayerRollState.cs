@@ -10,16 +10,16 @@ public class PlayerRollState : PlayerBaseState
     private const float CrossFadeDuration = 0.1f;
 
     public PlayerRollState(PlayerStateMachine stateMachine) : base(stateMachine) { }
-     AnimatorStateInfo asi;
+    AnimatorStateInfo asi;
     public override void Enter()
     {
         Debug.Log("entered roll state");
         stateMachine.Velocity.y = Physics.gravity.y;
 
-       stateMachine.Animator.Play("RunToRoll");
-      
-		
-       // stateMachine.InputReader.OnJumpPerformed += SwitchToJumpState;
+        stateMachine.Animator.Play("RunToRoll");
+
+
+        // stateMachine.InputReader.OnJumpPerformed += SwitchToJumpState;
     }
 
     public override void Tick()
@@ -28,20 +28,21 @@ public class PlayerRollState : PlayerBaseState
         // {
         //     stateMachine.SwitchState(new PlayerFallState(stateMachine));
         // }
-    
+
         CalculateMoveDirection();
         FaceMoveDirection();
         Move();
-        asi =stateMachine.Animator.GetCurrentAnimatorStateInfo(0);
+        asi = stateMachine.Animator.GetCurrentAnimatorStateInfo(0);
 
-        if (!asi.IsName("RunToRoll") || asi.normalizedTime >= 1)
-		{
-           
-			  if (stateMachine.InputReader.MoveComposite.magnitude != 0f &&  Input.GetKey(KeyCode.LeftShift))
+        if (asi.normalizedTime >= 1f && !stateMachine.Animator.IsInTransition(0))
+        {
+            Exit();
+
+            if (stateMachine.InputReader.MoveComposite.magnitude != 0f && Input.GetKeyDown(KeyCode.LeftShift))
             {
-                    stateMachine.SwitchState(new PlayerSprintState(stateMachine));
-    
-            
+                stateMachine.SwitchState(new PlayerSprintState(stateMachine));
+
+
             }
             else
             {
@@ -50,23 +51,23 @@ public class PlayerRollState : PlayerBaseState
             }
 
 
-		}
-       // stateMachine.Animator.SetFloat(SprintSpeedHash, stateMachine.InputReader.MoveComposite.sqrMagnitude > 0f ? 1f : 0f, AnimationDampTime, Time.deltaTime);
+        }
+        // stateMachine.Animator.SetFloat(SprintSpeedHash, stateMachine.InputReader.MoveComposite.sqrMagnitude > 0f ? 1f : 0f, AnimationDampTime, Time.deltaTime);
     }
 
     public override void Exit()
     {
-       
+
     }
 
     // private void SwitchToJumpState()
     // {
-     // if (stateMachine.InputReader.MoveComposite.magnitude != 0f)
-     // {
+    // if (stateMachine.InputReader.MoveComposite.magnitude != 0f)
+    // {
 
-     //     stateMachine.SwitchState(new PlayerJumpState(stateMachine));
-     // }
-        
+    //     stateMachine.SwitchState(new PlayerJumpState(stateMachine));
+    // }
+
 
     // }
 }

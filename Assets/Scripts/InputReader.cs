@@ -79,7 +79,7 @@ public class InputReader : MonoBehaviour, Controls.IPlayerActions
     private void resetPress()
     {
         pressed_once = false;
-        Debug.Log("resetting the bool counter");
+        // Debug.Log("resetting the bool counter");
         if (!roll)
         {
             OnJumpPerformed?.Invoke();
@@ -100,7 +100,7 @@ public class InputReader : MonoBehaviour, Controls.IPlayerActions
         Debug.Log("Menu Controls");
         GamePaused = !GamePaused;
         OnMenuControlsPerformed?.Invoke();
-        
+
     }
 
     public void DisableControls()
@@ -117,11 +117,14 @@ public class InputReader : MonoBehaviour, Controls.IPlayerActions
         controls.Player.Look.Enable();
     }
 
-    public void ToggleControls(bool state){
-        if(state){
+    public void ToggleControls(bool state)
+    {
+        if (state)
+        {
             EnableControls();
         }
-        else{
+        else
+        {
             DisableControls();
         }
     }

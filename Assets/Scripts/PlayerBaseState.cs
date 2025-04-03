@@ -19,6 +19,16 @@ public abstract class PlayerBaseState : State
         stateMachine.Velocity.x = moveDirection.x * stateMachine.MovementSpeed;
         stateMachine.Velocity.z = moveDirection.z * stateMachine.MovementSpeed;
     }
+    protected void CalculateSprintDirection()
+    {
+        Vector3 cameraForward = new(stateMachine.MainCamera.forward.x, 0, stateMachine.MainCamera.forward.z);
+        Vector3 cameraRight = new(stateMachine.MainCamera.right.x, 0, stateMachine.MainCamera.right.z);
+
+        Vector3 moveDirection = cameraForward.normalized * stateMachine.InputReader.MoveComposite.y + cameraRight.normalized * stateMachine.InputReader.MoveComposite.x;
+
+        stateMachine.Velocity.x = moveDirection.x * stateMachine.SprintSpeed;
+        stateMachine.Velocity.z = moveDirection.z * stateMachine.SprintSpeed;
+    }
 
     protected void FaceMoveDirection()
     {
@@ -43,6 +53,6 @@ public abstract class PlayerBaseState : State
         stateMachine.Controller.Move(stateMachine.Velocity * Time.deltaTime);
     }
 
-    
+
 
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerStateMachine : StateMachine
 {
     public Vector3 Velocity;
-    public float MovementSpeed { get; private set; } = 5f;
+    public float MovementSpeed { get; private set; } = 3f;
     public float JumpForce { get; private set; } = 5f;
     public float LookRotationDampFactor { get; private set; } = 10f;
     public Transform MainCamera { get; private set; }
@@ -14,7 +14,7 @@ public class PlayerStateMachine : StateMachine
     public Animator Animator { get; private set; }
     public CharacterController Controller { get; private set; }
 
-    public float SprintSpeed { get; private set; } = 8f;
+    public float SprintSpeed { get; private set; } = 5f;
     private void Start()
     {
         MainCamera = Camera.main.transform;
