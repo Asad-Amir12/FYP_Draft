@@ -7,7 +7,7 @@ public class EnemyBaseStateMachine : EnemyStateMachine<EnemyBaseStateMachine>
     public Collider AttackZone { get; set; }
     [SerializeField] private Transform player;
     public bool ShouldAttack { get; private set; } = false;
-
+    [SerializeField] private AttackData attackData;
     //States
     [SerializeField] public Animator Animator;
     [SerializeField] public EnemyIdleState IdleState;
@@ -20,12 +20,12 @@ public class EnemyBaseStateMachine : EnemyStateMachine<EnemyBaseStateMachine>
     {
         IdleState = new EnemyIdleState(this, agent, player);
         MoveState = new EnemyMoveState(this, agent, player);
-        AttackState = new EnemyAttackState(this, agent, player);
+        AttackState = new EnemyAttackState(this, agent, player, attackData);
     }
 
     private void Awake()
     {
-
+        player = CowboyReferenceHolder.Instance.CowboyTransform;
         IdleState = new EnemyIdleState(this, agent, player);
 
     }
@@ -50,6 +50,7 @@ public class EnemyBaseStateMachine : EnemyStateMachine<EnemyBaseStateMachine>
         }
         else if (zone == ZoneTrigger.ZoneType.Attack && entered)
         {
+            Debug.Log($"ZoneTrigger: {zone} entered={entered} in state {CurrentState}");
             if (entered)
                 ShouldAttack = true;
             else
