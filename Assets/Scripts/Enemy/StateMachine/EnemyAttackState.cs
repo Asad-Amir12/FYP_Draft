@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -47,7 +48,7 @@ public class EnemyAttackState : EnemyState<EnemyBaseStateMachine>
 
         if (!Owner.ShouldAttack)
         {
-            Owner.ChangeState(new EnemyMoveState(Owner, agent, player));
+            Owner.ChangeState(Owner.MoveState);
             return;
         }
 
@@ -103,4 +104,6 @@ public class EnemyAttackState : EnemyState<EnemyBaseStateMachine>
 
         comboIndex++;
     }
+
+
 }

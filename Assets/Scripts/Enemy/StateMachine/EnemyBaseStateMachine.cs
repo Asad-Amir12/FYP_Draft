@@ -25,13 +25,14 @@ public class EnemyBaseStateMachine : EnemyStateMachine<EnemyBaseStateMachine>
 
     private void Awake()
     {
-        player = CowboyReferenceHolder.Instance.CowboyTransform;
-        IdleState = new EnemyIdleState(this, agent, player);
+
 
     }
 
     private void Start()
     {
+        player = CowboyReferenceHolder.Instance.CowboyTransform;
+        IdleState = new EnemyIdleState(this, agent, player);
         InitializeStates();
         TransitionToState(MoveState);
     }

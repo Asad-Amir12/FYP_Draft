@@ -12,12 +12,11 @@ TagManager:
   - TransparentFX
   - Ignore Raycast
   - Ground
-  - Enemy
   - Water
   - UI
+  - UI
   - Player
-  - 
-  - 
+  - Enemy
   - 
   - 
   - 
