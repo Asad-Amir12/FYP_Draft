@@ -6,8 +6,9 @@ public class PlayerSprintState : PlayerBaseState
     // private readonly int MoveBlendTreeHash = Animator.StringToHash("MoveBlendTree");
 
     private readonly int SprintHash = Animator.StringToHash("Sprint");
+    private readonly int MoveBlendTreeHash = Animator.StringToHash("MoveBlendTree");
     private const float AnimationDampTime = 0.1f;
-    private const float CrossFadeDuration = 0.1f;
+    private const float CrossFadeDuration = 0.3f;
     private float coyoteTime = 0.4f; // Duration of coyote time
     private float coyoteTimer; // Timer to track coyote time
     public PlayerSprintState(PlayerStateMachine stateMachine) : base(stateMachine) { }
@@ -16,8 +17,8 @@ public class PlayerSprintState : PlayerBaseState
     {
         Debug.Log("entered sprint state");
         stateMachine.Velocity.y = Physics.gravity.y;
-
-        stateMachine.Animator.Play("Sprint");
+        stateMachine.Animator.CrossFadeInFixedTime(SprintHash, CrossFadeDuration);
+        //stateMachine.Animator.Play("Sprint");
 
         stateMachine.InputReader.OnJumpPerformed += SwitchToJumpState;
         stateMachine.InputReader.OnRollPerformed += SwitchToRollState;
@@ -43,6 +44,10 @@ public class PlayerSprintState : PlayerBaseState
         }
 
         if (stateMachine.InputReader.MoveComposite.magnitude != 0 && !Input.GetKey(KeyCode.LeftShift))
+        {
+            stateMachine.SwitchState(new PlayerMoveState(stateMachine));
+        }
+        if (stateMachine.InputReader.MoveComposite.magnitude == 0)
         {
             stateMachine.SwitchState(new PlayerMoveState(stateMachine));
         }

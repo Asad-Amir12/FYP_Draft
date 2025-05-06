@@ -5,7 +5,7 @@ public class PlayerMoveState : PlayerBaseState
     private readonly int MoveSpeedHash = Animator.StringToHash("MoveSpeed");
     private readonly int MoveBlendTreeHash = Animator.StringToHash("MoveBlendTree");
     private const float AnimationDampTime = 0.1f;
-    private const float CrossFadeDuration = 0.1f;
+    private const float CrossFadeDuration = 0.5f;
     private readonly float coyoteTime = 0.6f; // Duration of coyote time
     private float coyoteTimer; // Timer to track coyote time
 
