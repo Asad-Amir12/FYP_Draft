@@ -43,7 +43,7 @@ public class PlayerAttackState : PlayerBaseState
         stateMachine.Animator.Play(
             comboHashes[currentComboIndex]);
         comboTimer = -0.2f;
-        Debug.LogError($"Playing combo step {currentComboIndex}");
+        Debug.Log($"Playing combo step {currentComboIndex}");
     }
 
     public override void Tick()
