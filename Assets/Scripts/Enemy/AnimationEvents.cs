@@ -75,5 +75,35 @@ public class AnimationEvents : MonoBehaviour
             }
         }
     }
+    public void EnableBothHandsCollider()
+    {
+        if (Hitboxes.TryGetValue("BothHands", out List<Collider> hands))
+        {
+            foreach (var collider in hands)
+            {
+                collider.enabled = true;
+            }
+        }
+
+        else
+        {
+            Debug.LogWarning("BothHands not found in Hitboxes dictionary.");
+        }
+    }
+    public void DisableBothHandsCollider()
+    {
+        if (Hitboxes.TryGetValue("BothHands", out List<Collider> hands))
+        {
+            foreach (var collider in hands)
+            {
+                collider.enabled = false;
+            }
+        }
+
+        else
+        {
+            Debug.LogWarning("BothHands collider not found in Hitboxes dictionary.");
+        }
+    }
 
 }
