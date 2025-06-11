@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerAttackState : PlayerBaseState
 {
     private readonly AttackComboData comboData;
-    private readonly SwordHitDetector swordDetector;
+    //private readonly SwordHitDetector swordDetector;
     private readonly int[] comboHashes;
     private int currentComboIndex;
     private float comboTimer;
@@ -17,7 +17,7 @@ public class PlayerAttackState : PlayerBaseState
     public PlayerAttackState(PlayerStateMachine sm, SwordHitDetector det, AttackComboData data)
       : base(sm)
     {
-        swordDetector = det;
+        // swordDetector = det;
         comboData = data;
         comboHashes = data.comboClipNames
             .Select(Animator.StringToHash)
@@ -30,8 +30,8 @@ public class PlayerAttackState : PlayerBaseState
         currentComboIndex = 0;
         comboTimer = 0f;
         nextBuffered = false;
-        swordDetector.EnableDetector();
-        swordDetector.OnSwordHit += OnHit;
+        //swordDetector.EnableDetector();
+        // swordDetector.OnSwordHit += OnHit;
         stateMachine.InputReader.OnAttackPerformed += () => nextBuffered = true;
         PlayCombo();
         Debug.Log("Entering Attack State");
@@ -53,6 +53,11 @@ public class PlayerAttackState : PlayerBaseState
         bool finished = info.shortNameHash == comboHashes[currentComboIndex]
                         && info.normalizedTime >= 1f;
 
+        if (DamageDealer.Instance != null)
+        {
+            DamageDealer.Instance.PlayerAtkDmg = comboData.damagePerComboStep[currentComboIndex];
+        }
+
         if (finished)
         {
             if (nextBuffered
@@ -72,9 +77,9 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void Exit()
     {
-        swordDetector.OnSwordHit -= OnHit;
+        // swordDetector.OnSwordHit -= OnHit;
         stateMachine.InputReader.OnAttackPerformed -= () => nextBuffered = true;
-        swordDetector.DisableDetector();
+        //  swordDetector.DisableDetector();
         stateMachine.IsAttacking = false;
     }
 

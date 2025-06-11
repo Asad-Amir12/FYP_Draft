@@ -1,5 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+
+
 public class EnemyBaseStateMachine : EnemyStateMachine<EnemyBaseStateMachine>
 {
     [SerializeField] private NavMeshAgent agent;
@@ -13,7 +16,7 @@ public class EnemyBaseStateMachine : EnemyStateMachine<EnemyBaseStateMachine>
     [SerializeField] public EnemyIdleState IdleState;
     [SerializeField] public EnemyMoveState MoveState;
     [SerializeField] public EnemyAttackState AttackState;
-
+    public AnimationEvents animationEvents;
     public new EnemyState<EnemyBaseStateMachine> CurrentState => base.CurrentState;
 
     private void InitializeStates()
@@ -31,10 +34,12 @@ public class EnemyBaseStateMachine : EnemyStateMachine<EnemyBaseStateMachine>
 
     private void Start()
     {
+        animationEvents = GetComponent<AnimationEvents>();
         player = CowboyReferenceHolder.Instance.CowboyTransform;
         IdleState = new EnemyIdleState(this, agent, player);
         InitializeStates();
         TransitionToState(MoveState);
+        EventBus.OnPlayerAttacked += OnPlayerAttacked;
     }
     public void ChangeState(EnemyState<EnemyBaseStateMachine> newState)
     {
@@ -64,5 +69,17 @@ public class EnemyBaseStateMachine : EnemyStateMachine<EnemyBaseStateMachine>
             ChangeState(MoveState);
         }
         // add more logic as needed…
+    }
+
+    void OnPlayerAttacked()
+    {
+        //TODO remove const expression
+        Debug.Log("Player attacked, triggering health change.");
+        EventBus.TriggerOnPlayerHealthChanged(-10);
+
+    }
+    void OnDestroy()
+    {
+        EventBus.OnPlayerAttacked -= OnPlayerAttacked;
     }
 }
