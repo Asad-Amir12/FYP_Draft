@@ -77,6 +77,8 @@ public class EnemyAttackState : EnemyState<EnemyBaseStateMachine>
 
         if (attackZone != null)
             attackZone.enabled = false;
+        if (Owner.animationEvents != null)
+            Owner.animationEvents.DisableAllAttackColliders();
     }
 
     private void PerformSingle()
@@ -104,6 +106,5 @@ public class EnemyAttackState : EnemyState<EnemyBaseStateMachine>
 
         comboIndex++;
     }
-
 
 }
