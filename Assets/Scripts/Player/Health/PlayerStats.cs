@@ -5,22 +5,24 @@ using UnityEngine;
 using UnityEngine.UI;
 public class PlayerInfo : MonoBehaviour
 {
-    [SerializeField] private Slider healthSlider;
+    // [SerializeField] private Slider healthSlider;
     [SerializeField] private float invincibilityDuration = 0.3f;
     private bool isInvincible = false;
 
-    public int MaxHealth = 200;
+    private int MaxHealth;
     private int currentHealth;
+    private readonly float KeyDelay = 1f;
+    private bool CanPressKey = true;
     // Start is called before the first frame update
-
+    public static event Action<int> OnUpdateHealth;
+    public static event Action<int> OnConsumableUsed;
 
     void Start()
     {
-
+        MaxHealth = DataCarrier.PlayerMaxHealth;
         EventBus.OnPlayerHealthChanged += OnPlayerHealthChanged;
         currentHealth = MaxHealth;
-        healthSlider.maxValue = MaxHealth;
-        healthSlider.value = currentHealth;
+
     }
 
     private void OnPlayerHealthChanged(int delta)
@@ -32,7 +34,8 @@ public class PlayerInfo : MonoBehaviour
         // Apply health change
         currentHealth += delta;
         currentHealth = Mathf.Clamp(currentHealth, 0, MaxHealth);
-        healthSlider.value = currentHealth;
+        OnUpdateHealth?.Invoke(currentHealth);
+        // healthSlider.value = currentHealth;
 
         // If we just took damage, kick off invincibility
         if (delta < 0)
@@ -45,10 +48,52 @@ public class PlayerInfo : MonoBehaviour
         isInvincible = false;
     }
 
+    void Update()
+    {
+        if (CanPressKey)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
 
+                Debug.Log("Key 1 pressed");
+                OnConsumableUsed?.Invoke(1);
+                StartCoroutine(CoyoteTimer());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+
+                Debug.Log("Key 2 pressed");
+                OnConsumableUsed?.Invoke(2);
+                StartCoroutine(CoyoteTimer());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+
+                Debug.Log("Key 3 pressed");
+                OnConsumableUsed?.Invoke(3);
+                StartCoroutine(CoyoteTimer());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+
+                Debug.Log("Key 4 pressed");
+                OnConsumableUsed?.Invoke(4);
+                StartCoroutine(CoyoteTimer());
+            }
+
+        }
+    }
     void OnDestroy()
     {
         // Always unsubscribe to avoid leaks
         EventBus.OnPlayerHealthChanged -= OnPlayerHealthChanged;
+        StopAllCoroutines();
+    }
+
+    IEnumerator CoyoteTimer()
+    {
+        CanPressKey = false;
+        yield return new WaitForSeconds(KeyDelay);
+        CanPressKey = true;
     }
 }
