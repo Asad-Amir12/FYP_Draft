@@ -1,4 +1,6 @@
 {
+    "concurrentEnemyCount": 4,
+    "timeBetweenSpawns": 0.2,
     "enemyData": [
         {
             "enemyType": "Creep",

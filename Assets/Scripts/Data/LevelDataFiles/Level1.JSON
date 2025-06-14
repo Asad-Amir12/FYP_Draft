@@ -4,7 +4,7 @@
     "enemyData": [
         {
             "enemyType": "Creep",
-            "enemyCount": 10,
+            "enemyCount": 1,
             "maxHealth": 10,
             "invincibilityDuration": 0.5,
             "baseDamage": 5,
@@ -13,7 +13,7 @@
         },
         {
             "enemyType": "Demon",
-            "enemyCount": 3,
+            "enemyCount": 1,
             "maxHealth": 10,
             "invincibilityDuration": 1.0,
             "baseDamage": 20,

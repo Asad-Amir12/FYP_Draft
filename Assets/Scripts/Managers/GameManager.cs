@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         LevelGenerator.Instance.OnLevelGenerated += OnLevelGenerated;
+        EventBus.OnLevelCleared += OnLevelCleared;
     }
     // Start is called before the first frame update
     void Start()
@@ -62,6 +64,18 @@ public class GameManager : MonoBehaviour
         isGameStarted = true;
         ResetTimer();
         StartCoroutine(LevelTimer());
+    }
+    public void StopGame()
+    {
+        isGameStarted = false;
+        StopCoroutine(LevelTimer());
+
+    }
+    public void OnLevelCleared()
+    {
+        StopGame();
+        DataCarrier.SelectedLevelIndex++;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 }

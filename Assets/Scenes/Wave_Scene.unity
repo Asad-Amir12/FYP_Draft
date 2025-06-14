@@ -3289,7 +3289,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 660770322}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.07561825, y: -0.0012631556, z: -0.049090497, w: 0.995927}
+  m_LocalRotation: {x: -0.075618275, y: -0.0012631549, z: -0.049090497, w: 0.995927}
   m_LocalPosition: {x: 0.0000005010894, y: -0.00000064726686, z: -0.0000023011808}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8592,7 +8592,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1582394037}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.19091442, y: 0.0044537927, z: -0.048904352, w: 0.98037755}
+  m_LocalRotation: {x: -0.19091442, y: 0.004453763, z: -0.04890435, w: 0.98037755}
   m_LocalPosition: {x: 0.00000025190147, y: -0.0000003007615, z: -0.0000010618775}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -13338,7 +13338,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Next Wave in: 2:00'
+  m_text: 'Time : 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
