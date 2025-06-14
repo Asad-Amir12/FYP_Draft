@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyBaseStateMachine : EnemyStateMachine<EnemyBaseStateMachine>
 {
-    [SerializeField] private NavMeshAgent agent;
+    [SerializeField] public NavMeshAgent agent;
     public Collider DetectionZone { get; set; }
     public Collider AttackZone { get; set; }
     [SerializeField] private Transform player;
@@ -17,6 +17,7 @@ public class EnemyBaseStateMachine : EnemyStateMachine<EnemyBaseStateMachine>
     [SerializeField] public EnemyMoveState MoveState;
     [SerializeField] public EnemyAttackState AttackState;
     public AnimationEvents animationEvents;
+    [SerializeField] public EnemyStats enemyStats;
     public new EnemyState<EnemyBaseStateMachine> CurrentState => base.CurrentState;
 
     private void InitializeStates()

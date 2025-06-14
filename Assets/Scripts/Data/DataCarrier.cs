@@ -9,5 +9,6 @@ public static class DataCarrier
     public static int PlayerStamina = 100;
     public static int PlayerMaxStamina = 100;
     public static int PlayerCurrency = 0;
+    public static int SelectedLevelIndex = 0;
 
 }

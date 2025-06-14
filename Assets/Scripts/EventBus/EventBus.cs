@@ -13,6 +13,8 @@ public class EventBus
     public static event Action OnPlayerAttacked;
     public static event Action<int> OnPlayerHealthChanged;
     public static event Action OnEnemyAttacked;
+    public static event Action OnEnemyKilled;
+    public static event Action OnLevelCleared;
 
     public static void TriggerGameResumed()
     {
@@ -39,5 +41,14 @@ public class EventBus
     public static void TriggerOnEnemyAttacked()
     {
         OnEnemyAttacked?.Invoke();
+    }
+    public static void TriggerOnEnemyKilled()
+    {
+        OnEnemyKilled?.Invoke();
+    }
+
+    public static void TriggerOnLevelCleared()
+    {
+        OnLevelCleared?.Invoke();
     }
 }

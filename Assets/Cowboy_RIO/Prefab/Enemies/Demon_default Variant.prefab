@@ -1515,7 +1515,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8186765072122263855}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
@@ -1537,7 +1537,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8186765072122263855}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af1bb9dc3e648d8408e2a1582ad23e93, type: 3}
   m_Name: 
@@ -1547,6 +1547,7 @@ MonoBehaviour:
   attackData: {fileID: 11400000, guid: 2ba83828170d4964386bb3fdaf04fa77, type: 2}
   Animator: {fileID: 9033185819615191616}
   animationEvents: {fileID: 5318357777264533944}
+  enemyStats: {fileID: 7251301895634246050}
 --- !u!4 &8851521437934838677 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5792592034335851674, guid: 5bba62d8b65dae44898012275d24ba9e,
@@ -1576,6 +1577,7 @@ MonoBehaviour:
   baseDamage: 10
   defense: 0
   currentHealth: 0
+  attackSpeed: 0
 --- !u!95 &9033185819615191616 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 6334826067895158095, guid: 5bba62d8b65dae44898012275d24ba9e,

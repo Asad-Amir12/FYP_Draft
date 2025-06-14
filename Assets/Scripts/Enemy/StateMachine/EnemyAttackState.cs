@@ -39,6 +39,7 @@ public class EnemyAttackState : EnemyState<EnemyBaseStateMachine>
             agent.isStopped = true;
 
         comboIndex = 0;
+        animator.SetFloat("Speed", Owner.enemyStats.attackSpeed);
     }
 
     public override void Tick()
@@ -79,15 +80,19 @@ public class EnemyAttackState : EnemyState<EnemyBaseStateMachine>
             attackZone.enabled = false;
         if (Owner.animationEvents != null)
             Owner.animationEvents.DisableAllAttackColliders();
+        animator.SetFloat("Speed", 1f);
     }
 
     private void PerformSingle()
     {
         int hash = Animator.StringToHash("Attack");
+
         animator.Play(hash);
 
         if (attackZone != null)
             attackZone.enabled = true;
+
+
     }
 
     private void PerformCombo()

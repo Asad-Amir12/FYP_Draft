@@ -3264,17 +3264,17 @@ PrefabInstance:
     - target: {fileID: 7901366144787748822, guid: f2e03fd1cffea284890ee861660f8b1d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.23
+      value: -9.511494
       objectReference: {fileID: 0}
     - target: {fileID: 7901366144787748822, guid: f2e03fd1cffea284890ee861660f8b1d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.63
+      value: -17.973358
       objectReference: {fileID: 0}
     - target: {fileID: 7901366144787748822, guid: f2e03fd1cffea284890ee861660f8b1d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -12.33
+      value: -17.677692
       objectReference: {fileID: 0}
     - target: {fileID: 7901366144787748822, guid: f2e03fd1cffea284890ee861660f8b1d,
         type: 3}
@@ -3284,17 +3284,17 @@ PrefabInstance:
     - target: {fileID: 7901366144787748822, guid: f2e03fd1cffea284890ee861660f8b1d,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7901366144787748822, guid: f2e03fd1cffea284890ee861660f8b1d,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7901366144787748822, guid: f2e03fd1cffea284890ee861660f8b1d,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7901366144787748822, guid: f2e03fd1cffea284890ee861660f8b1d,
         type: 3}
@@ -3740,9 +3740,9 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8001848370891122104}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.39
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -3762,7 +3762,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8001848370891122104}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af1bb9dc3e648d8408e2a1582ad23e93, type: 3}
   m_Name: 
@@ -3772,6 +3772,7 @@ MonoBehaviour:
   attackData: {fileID: 11400000, guid: 91d8997bc825e3c49881b1478ceca03e, type: 2}
   Animator: {fileID: 8001848370883827320}
   animationEvents: {fileID: 3919059613744982098}
+  enemyStats: {fileID: 716016913694593512}
 --- !u!114 &716016913694593512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3789,6 +3790,7 @@ MonoBehaviour:
   baseDamage: 10
   defense: 0
   currentHealth: 0
+  attackSpeed: 0
 --- !u!114 &3919059613744982098
 MonoBehaviour:
   m_ObjectHideFlags: 0

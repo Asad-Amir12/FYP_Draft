@@ -6,12 +6,12 @@ using UnityEngine;
 public class EnemyStats : MonoBehaviour
 {
     [Header("Health Settings")]
-    [SerializeField] private int maxHealth = 50;
-    [SerializeField] private float invincibilityDuration = 0.1f;
+    [SerializeField] public int maxHealth = 50;
+    [SerializeField] public float invincibilityDuration = 0.1f;
 
     [Header("Combat Settings")]
-    [SerializeField] private int baseDamage = 10;
-    [SerializeField] private float defense = 0f;      // Flat damage reduction or multiplier
+    [SerializeField] public int baseDamage = 10;
+    [SerializeField] public float defense = 0f;      // Flat damage reduction or multiplier
 
     public int currentHealth;
     // Exposed properties if you need to read them
@@ -19,6 +19,7 @@ public class EnemyStats : MonoBehaviour
     public int MaxHealth => maxHealth;
     public bool IsAlive => currentHealth > 0;
     private bool isInvincible = false;
+    public float attackSpeed;
 
     // Events to notify other systems (e.g. UI, audio, spawn loot)
     public event Action<int> OnHealthChanged;
@@ -28,6 +29,7 @@ public class EnemyStats : MonoBehaviour
     {
         currentHealth = maxHealth;
     }
+
 
     /// <summary>
     /// Call this to deal damage (negative delta) or heal (positive delta).
@@ -40,7 +42,7 @@ public class EnemyStats : MonoBehaviour
 
         // Apply defense (flat reduction)
         if (delta < 0)
-            delta += Mathf.CeilToInt(defense);
+            delta -= (int)defense;
 
         currentHealth = Mathf.Clamp(currentHealth + delta, 0, maxHealth);
         OnHealthChanged?.Invoke(currentHealth);
@@ -71,6 +73,7 @@ public class EnemyStats : MonoBehaviour
     private void Die()
     {
         OnDeath?.Invoke();
+        EventBus.TriggerOnEnemyKilled();
         // default: destroy gameobject—override in subclasses if needed
         Destroy(gameObject);
     }
