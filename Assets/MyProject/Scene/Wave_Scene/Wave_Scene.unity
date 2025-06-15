@@ -1715,7 +1715,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0041308417, y: 0.9824947, z: 0.021944238, w: 0.18494743}
+  m_LocalRotation: {x: -0.004130833, y: 0.9824947, z: 0.021944191, w: 0.18494743}
   m_LocalPosition: {x: -21.872538, y: 6.71, z: 14.052449}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6582,8 +6582,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioClipDictionary:
     _serializedList:
-    - Key: Loading
-      Value: {fileID: 8300000, guid: 531245a3d9eec4f4bb364efae8807deb, type: 3}
+    - Key: Click
+      Value: {fileID: 8300000, guid: bad7f994471203141be82d4a4cdd7069, type: 3}
+    - Key: Player Slash
+      Value: {fileID: 8300000, guid: 3354275af74afcf498be7da4361b97d8, type: 3}
+    - Key: ' Player Slash Enemy'
+      Value: {fileID: 8300000, guid: 3e734e1f18efb7a4893291c1a7b19668, type: 3}
+    - Key: Walk
+      Value: {fileID: 8300000, guid: 15e2cbcb769b2cf4e88d99578d6550c5, type: 3}
+    - Key: Jump
+      Value: {fileID: 8300000, guid: ada975e913b738743a90fb31d98e0f28, type: 3}
+    - Key: Hit
+      Value: {fileID: 8300000, guid: a0b7ae4875e47fc48a1cbe4fe4e3d6a9, type: 3}
+    - Key: Death
+      Value: {fileID: 8300000, guid: bdd3d7f8691be6e4e98c690645ef247f, type: 3}
+    - Key: Roll
+      Value: {fileID: 8300000, guid: 4a3718942efbede4e834407bd1aaf58e, type: 3}
+    - Key: Enemy Death
+      Value: {fileID: 8300000, guid: ad25cb4639154604f8f8be84fdd18e5b, type: 3}
+    - Key: Enemy Attack
+      Value: {fileID: 8300000, guid: 9e13d27467daf8748927c219c3a043fb, type: 3}
+    - Key: Enemy Walk
+      Value: {fileID: 8300000, guid: f051ab8904e89a2438c16fbf1772e0da, type: 3}
   audioSource: {fileID: 1248136132}
 --- !u!1 &1257302929
 GameObject:
@@ -6826,7 +6846,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1302368511}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.14812538, y: 0.0023241292, z: -0.049051713, w: 0.9877487}
+  m_LocalRotation: {x: -0.14812537, y: 0.0023241285, z: -0.049051713, w: 0.9877487}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
