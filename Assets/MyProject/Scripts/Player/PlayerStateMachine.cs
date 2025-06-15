@@ -73,6 +73,7 @@ public class PlayerStateMachine : StateMachine
         InputReader.OnAttackPerformed -= SwitchToAttackState;
         EventBus.OnPlayerStatsChanged += UpdateAttackComboData;
         EventBus.OnPlayerDied -= Die;
+        EventBus.OnPlayerHealthChanged -= OnHit;
     }
 
     private void Die()
@@ -128,3 +129,5 @@ public class PlayerStateMachine : StateMachine
     }
 
 }
+
+

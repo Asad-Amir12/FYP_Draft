@@ -84,6 +84,7 @@ public class EnemyBaseStateMachine : EnemyStateMachine<EnemyBaseStateMachine>
     void OnDestroy()
     {
         EventBus.OnPlayerAttacked -= OnPlayerAttacked;
+        EventBus.OnPlayerDied -= OnPlayerDied;
     }
     void OnPlayerDied()
     {
