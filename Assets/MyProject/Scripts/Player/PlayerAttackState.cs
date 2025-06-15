@@ -11,13 +11,14 @@ public class PlayerAttackState : PlayerBaseState
     private int currentComboIndex;
     private float comboTimer;
     private bool nextBuffered;
-
+    private PlayerStateMachine owner;
     public event Action<int> OnComboStep;
 
     public PlayerAttackState(PlayerStateMachine sm, SwordHitDetector det, AttackComboData data)
       : base(sm)
     {
         // swordDetector = det;
+        owner = sm;
         comboData = data;
         comboHashes = data.comboClipNames
             .Select(Animator.StringToHash)
@@ -26,6 +27,7 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void Enter()
     {
+
         stateMachine.IsAttacking = true;
         currentComboIndex = 0;
         comboTimer = 0f;
@@ -42,6 +44,8 @@ public class PlayerAttackState : PlayerBaseState
         OnComboStep?.Invoke(currentComboIndex);
         stateMachine.Animator.Play(
             comboHashes[currentComboIndex]);
+
+
         comboTimer = -0.2f;
         Debug.Log($"Playing combo step {currentComboIndex}");
     }

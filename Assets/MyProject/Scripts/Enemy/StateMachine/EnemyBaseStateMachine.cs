@@ -1,4 +1,5 @@
-using System.Collections.Generic;
+using System.Collections;
+
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -41,6 +42,7 @@ public class EnemyBaseStateMachine : EnemyStateMachine<EnemyBaseStateMachine>
         InitializeStates();
         TransitionToState(MoveState);
         EventBus.OnPlayerAttacked += OnPlayerAttacked;
+        EventBus.OnPlayerDied += OnPlayerDied;
     }
     public void ChangeState(EnemyState<EnemyBaseStateMachine> newState)
     {
@@ -82,5 +84,29 @@ public class EnemyBaseStateMachine : EnemyStateMachine<EnemyBaseStateMachine>
     void OnDestroy()
     {
         EventBus.OnPlayerAttacked -= OnPlayerAttacked;
+    }
+    void OnPlayerDied()
+    {
+        StartCoroutine(DelayedStop());
+    }
+
+    IEnumerator DelayedStop()
+    {
+        CurrentState?.Exit();
+        yield return new WaitForSeconds(1f);
+        int hash = Animator.StringToHash("Idle");
+        if (Animator.HasState(0, hash))
+        {
+            Animator.CrossFadeInFixedTime(hash, 1f);
+            yield return new WaitForSeconds(1f);  // let the blend complete
+
+        }
+        else
+        {
+            Animator.enabled = false;
+        }
+
+        agent.enabled = false;
+        this.enabled = false;
     }
 }

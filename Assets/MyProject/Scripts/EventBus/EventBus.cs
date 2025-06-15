@@ -20,6 +20,7 @@ public class EventBus
     public static event Action OnPlayerStatsChanged;
     public static event Action OnPlayerAttackDataChanged;
     public static event Action OnLevelGenerated;
+    public static event Action OnPlayerDied;
 
     public static void TriggerGameResumed()
     {
@@ -29,6 +30,10 @@ public class EventBus
     public static void TriggerGamePaused()
     {
         GamePaused?.Invoke();
+    }
+    public static void TriggerOnPlayerDied()
+    {
+        OnPlayerDied?.Invoke();
     }
     public static void TriggerOnLevelGenerated()
     {

@@ -25,6 +25,7 @@ public class PlayerInfo : MonoBehaviour
         currentHealth = MaxHealth;
         EventBus.OnInventoryOpened += OnPauseHUDActions;
         EventBus.OnInventoryClosed += OnResumeHUDActions;
+
     }
 
     private void OnPlayerHealthChanged(int delta)
@@ -40,7 +41,7 @@ public class PlayerInfo : MonoBehaviour
         // healthSlider.value = currentHealth;
         if (currentHealth <= 0)
         {
-            EventBus.TriggerOnLevelFailed();
+            EventBus.TriggerOnPlayerDied();
 
         }
         // If we just took damage, kick off invincibility
