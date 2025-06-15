@@ -82,8 +82,28 @@ public class InventoryManager : MonoBehaviour
         if (data.itemCost > OwnedCurrency) return false;
         OwnedCurrency -= data.itemCost;
         DataCarrier.PlayerCurrency = OwnedCurrency;
-        OnInventoryUpdated?.Invoke();
-        return AddItem(data);
+        bool success = AddItem(data);
+        if (success)
+        {
+
+            OnInventoryUpdated?.Invoke();
+        }
+        return success;
+    }
+    public bool RemoveItemByName(string name)
+    {
+        foreach (var slot in slots)
+        {
+
+            if (slot.item != null && slot.item.itemName == name)
+            {
+
+                bool success = RemoveItem(slot.item);
+                if (success) OnInventoryUpdated?.Invoke();
+                return success;
+            }
+        }
+        return false;
     }
     public bool RemoveItem(ItemData item, int amount = 1)
     {
@@ -96,7 +116,7 @@ public class InventoryManager : MonoBehaviour
                     slot.quantity -= amount;
                     if (slot.quantity == 0)
                         slot.item = null;
-                    OnInventoryUpdated?.Invoke();
+
                     return true;
                 }
             }

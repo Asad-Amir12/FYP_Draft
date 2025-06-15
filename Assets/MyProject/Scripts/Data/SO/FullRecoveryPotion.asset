@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 555b9e0a665660443bd5dded848b88bc, type: 3}
   m_Name: FullRecoveryPotion
   m_EditorClassIdentifier: 
-  itemName: Full Recovery Potionn
+  itemName: Full Recovery Potion
   icon: {fileID: 21300000, guid: 6592b916f86b19e428db6f6847c7b6dd, type: 3}
   stackable: 1
   maxStack: 99
