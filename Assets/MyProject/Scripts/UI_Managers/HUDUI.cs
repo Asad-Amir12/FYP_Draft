@@ -10,7 +10,7 @@ public class HUDUI : MonoBehaviour
     [SerializeField] private Slider StaminaSlider;
     [SerializeField] private TextMeshProUGUI CurrencyText;
     [SerializeField] private List<SlotItem> Consumables;
-    [SerializeField] private GameObject TimerObject;
+    [SerializeField] public GameObject TimerObject;
 
     public static HUDUI Instance { get; private set; }
 
@@ -34,7 +34,7 @@ public class HUDUI : MonoBehaviour
         PlayerInfo.OnConsumableUsed += UpdateConsumables;
         InventoryManager.OnInventoryUpdated += UpdateCurrency;
         InventoryManager.OnInventoryUpdated += SetUpConsumables;
-
+        EventBus.OnPlayerStatsChanged += UpdateHud;
         HealthSlider.maxValue = DataCarrier.PlayerMaxHealth;
         HealthSlider.value = DataCarrier.PlayerMaxHealth;
         StaminaSlider.maxValue = DataCarrier.PlayerMaxStamina;
@@ -116,6 +116,15 @@ public class HUDUI : MonoBehaviour
         PlayerInfo.OnUpdateHealth -= UpdateHealth;
         PlayerInfo.OnConsumableUsed -= UpdateConsumables;
         InventoryManager.OnInventoryUpdated -= UpdateCurrency;
+
+    }
+    private void UpdateHud()
+    {
+        HealthSlider.maxValue = DataCarrier.PlayerMaxHealth;
+        HealthSlider.value = DataCarrier.PlayerMaxHealth;
+        StaminaSlider.maxValue = DataCarrier.PlayerMaxStamina;
+        StaminaSlider.value = DataCarrier.PlayerMaxStamina;
+        CurrencyText.text = DataCarrier.PlayerCurrency.ToString();
 
     }
 

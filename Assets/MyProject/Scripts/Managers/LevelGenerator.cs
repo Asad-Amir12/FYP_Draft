@@ -7,7 +7,7 @@ using UnityEngine.Purchasing.MiniJSON;
 public class LevelGenerator : MonoBehaviour
 {
     public static LevelGenerator Instance;
-    public event Action OnLevelGenerated;
+    //public event Action OnLevelGenerated;
     private LevelData currentLevelData;
     void Awake()
     {
@@ -29,7 +29,7 @@ public class LevelGenerator : MonoBehaviour
         Debug.Log(pretty);
         // Level generation logic goes here
         Debug.Log("Level generated!");
-        OnLevelGenerated?.Invoke();
+        EventBus.TriggerOnLevelGenerated();
         EnemySpawner.Instance.StartSpawner(currentLevelData);
 
     }

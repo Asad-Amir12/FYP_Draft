@@ -22,6 +22,7 @@ public class PlayerStateMachine : StateMachine
     [SerializeField] private AttackComboData attackComboData;
 
     [SerializeField] private SwordHitDetector SwordDetector;
+    private AttackComboData attackComboDataCopy;
     public float SprintSpeed { get; private set; } = 10f;
 
     private void SubscribeToInputActions()
@@ -30,16 +31,24 @@ public class PlayerStateMachine : StateMachine
     }
     private void Start()
     {
+        attackComboDataCopy = Instantiate(attackComboData);
+        EventBus.OnPlayerAttackDataChanged += UpdateAttackComboData;
         MainCamera = Camera.main.transform;
         InputReader = GetComponent<InputReader>();
         Animator = GetComponent<Animator>();
         Controller = GetComponent<CharacterController>();
-        attackState = new PlayerAttackState(this, SwordDetector, attackComboData);
+        attackState = new PlayerAttackState(this, SwordDetector, attackComboDataCopy);
         moveState = new PlayerMoveState(this);
         SubscribeToInputActions();
         SwitchState(moveState);
     }
-
+    void UpdateAttackComboData()
+    {
+        for (int i = 0; i < attackComboData.damagePerComboStep.Length; i++)
+        {
+            attackComboDataCopy.damagePerComboStep[i] += Mathf.CeilToInt(DataCarrier.PlayerAttack * DataCarrier.PlayerAttackMultiplier);
+        }
+    }
     private void SwitchToAttackState()
     {
         // If we’re already in attackState, just buffer the next combo
@@ -58,5 +67,6 @@ public class PlayerStateMachine : StateMachine
     private void OnDestroy()
     {
         InputReader.OnAttackPerformed -= SwitchToAttackState;
+        EventBus.OnPlayerStatsChanged += UpdateAttackComboData;
     }
 }

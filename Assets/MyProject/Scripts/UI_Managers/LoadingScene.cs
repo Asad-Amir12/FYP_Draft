@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class LoadingScene : MonoBehaviour
 {
 
-    
+
     [SerializeField] Image loadingFill;
     [SerializeField] GameObject loadingCanvas;
     //[SerializeField] private GameObject mainMenuButtons;
@@ -17,21 +17,24 @@ public class LoadingScene : MonoBehaviour
     public static event Action OnReturnToMainMenu;
 
     public static LoadingScene Instance;
-    public void Awake(){
-        if(Instance == null){
+    public void Awake()
+    {
+        if (Instance == null)
+        {
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
-        else{
+        else
+        {
             Destroy(this.gameObject);
         }
-        
+
     }
 
     IEnumerator LoadLevelAsync(int sceneIndex)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
-        
+
         while (!operation.isDone)
         {
             float progress = Mathf.Clamp01(operation.progress / 0.9f);
@@ -40,21 +43,23 @@ public class LoadingScene : MonoBehaviour
             yield return null;
         }
         loadingCanvas.SetActive(false);
-        if(sceneIndex == 2){
-             OnGameSceneLoaded?.Invoke();
+        if (sceneIndex == 1)
+        {
+            OnGameSceneLoaded?.Invoke();
         }
-        if(SceneManager.GetActiveScene().buildIndex == 1 && sceneIndex == 1){
+        if (SceneManager.GetActiveScene().buildIndex == 0 && sceneIndex == 0)
+        {
             OnReturnToMainMenu?.Invoke();
         }
-       
+
     }
     public void LoadScene(int sceneIndex)
     {
         //gameObject.SetActive(true);
         loadingCanvas.SetActive(true);
-       // mainMenuButtons.SetActive(false);
+        // mainMenuButtons.SetActive(false);
         StartCoroutine(nameof(LoadLevelAsync), sceneIndex);
-        
+
     }
 
 

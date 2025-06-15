@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     private float elapsedTime;
     private bool isGameStarted = false;
-    [SerializeField] private PlayerInfo playerInfo;
+    // [SerializeField] private PlayerInfo playerInfo;
     [SerializeField] private TextMeshProUGUI timerText;
 
 
@@ -18,21 +19,35 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-
+            transform.parent = null;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
-        LevelGenerator.Instance.OnLevelGenerated += OnLevelGenerated;
+
+        EventBus.OnLevelGenerated += OnLevelGenerated;
         EventBus.OnLevelCleared += OnLevelCleared;
+        EventBus.OnLevelFailed += OnLevelFailed;
     }
     // Start is called before the first frame update
     void Start()
     {
+
+    }
+    void OnDestroy()
+    {
+        EventBus.OnLevelGenerated -= OnLevelGenerated;
+        EventBus.OnLevelCleared -= OnLevelCleared;
+        EventBus.OnLevelFailed -= OnLevelFailed;
     }
     void OnLevelGenerated()
     {
+        if (timerText == null)
+        {
+            timerText = HUDUI.Instance.TimerObject.GetComponentInChildren<TextMeshProUGUI>();
+        }
 
         // Initialize player stats or other game elements here
         Debug.Log("Level generated, initializing player stats.");
@@ -61,8 +76,9 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        isGameStarted = true;
+        StopAllCoroutines();
         ResetTimer();
+        isGameStarted = true;
         StartCoroutine(LevelTimer());
         HUDUI.Instance.ToggleHUD(true);
     }
@@ -78,7 +94,20 @@ public class GameManager : MonoBehaviour
     {
         StopGame();
         DataCarrier.SelectedLevelIndex++;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void OnLevelFailed()
+    {
+        StopGame();
+
+        DataCarrier.ResetData();
+    }
+    void OnDisable()
+    {
+        if (LevelGenerator.Instance != null)
+            EventBus.OnLevelGenerated -= OnLevelGenerated;
+        EventBus.OnLevelCleared -= OnLevelCleared;
+        EventBus.OnLevelFailed -= OnLevelFailed;
     }
 
 }

@@ -16,6 +16,10 @@ public class EventBus
     public static event Action OnEnemyAttacked;
     public static event Action OnEnemyKilled;
     public static event Action OnLevelCleared;
+    public static event Action OnLevelFailed;
+    public static event Action OnPlayerStatsChanged;
+    public static event Action OnPlayerAttackDataChanged;
+    public static event Action OnLevelGenerated;
 
     public static void TriggerGameResumed()
     {
@@ -26,10 +30,21 @@ public class EventBus
     {
         GamePaused?.Invoke();
     }
-
+    public static void TriggerOnLevelGenerated()
+    {
+        OnLevelGenerated?.Invoke();
+    }
     public static void TriggerReturnToMainMenu()
     {
         ReturnToMainMenu?.Invoke();
+    }
+    public static void TriggerOnPlayerStatsChanged()
+    {
+        OnPlayerStatsChanged?.Invoke();
+    }
+    public static void TriggerOnPlayerAttackDataChanged()
+    {
+        OnPlayerAttackDataChanged?.Invoke();
     }
     public static void TriggerOnPlayerHealthChanged(int change)
     {
@@ -51,6 +66,10 @@ public class EventBus
     public static void TriggerOnLevelCleared()
     {
         OnLevelCleared?.Invoke();
+    }
+    public static void TriggerOnLevelFailed()
+    {
+        OnLevelFailed?.Invoke();
     }
     public static void TriggerOnInventoryOpened()
     {

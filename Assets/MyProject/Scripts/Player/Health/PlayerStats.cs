@@ -38,7 +38,11 @@ public class PlayerInfo : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth, 0, MaxHealth);
         OnUpdateHealth?.Invoke(currentHealth);
         // healthSlider.value = currentHealth;
+        if (currentHealth <= 0)
+        {
+            EventBus.TriggerOnLevelFailed();
 
+        }
         // If we just took damage, kick off invincibility
         if (delta < 0)
             StartCoroutine(InvincibilityCoroutine());
