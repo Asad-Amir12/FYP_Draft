@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d8735e3629fb8a40a4e8b1caf0e1a35, type: 3}
+  m_Name: SellableItemsData
+  m_EditorClassIdentifier: 
+  sellableItems:
+  - {fileID: 11400000, guid: 6617e60d7293c1e4c81ed4c3ec7e3095, type: 2}
+  - {fileID: 11400000, guid: f4d95ac72e990614a8af5fb697ec69f4, type: 2}
+  - {fileID: 11400000, guid: da498308b74d824499cf1377399716b7, type: 2}
+  - {fileID: 11400000, guid: 048bfe442e920234f80c981fb48e9a4b, type: 2}
