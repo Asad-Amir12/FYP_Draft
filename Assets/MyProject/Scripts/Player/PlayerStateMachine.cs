@@ -78,6 +78,8 @@ public class PlayerStateMachine : StateMachine
 
     private void Die()
     {
+        EventBus.OnPlayerHealthChanged -= OnHit;
+
         StartCoroutine(WaitForDeathAnimation());
     }
     void OnHit(int foo)

@@ -18,7 +18,9 @@ public class InventoryManager : MonoBehaviour
     [Header("Owned Items Data")]
     [SerializeField] private ItemData testSO; // For testing purposes
     [SerializeField] private int OwnedCurrency;
+    [SerializeField] private int baseReward = 50;
     public static event Action OnInventoryUpdated;
+    public static event Action OnRewardsGiven;
     void Awake()
     {
 
@@ -36,6 +38,7 @@ public class InventoryManager : MonoBehaviour
     }
     void Start()
     {
+        EventBus.OnLevelCleared += GiveRewards;
         slots = new List<InventorySlot>(slotCount);
         for (int i = 0; i < slotCount; i++)
             slots.Add(new InventorySlot(null, 0));
@@ -76,7 +79,22 @@ public class InventoryManager : MonoBehaviour
         Debug.LogWarning("Inventory full!");
         return false;
     }
+    void GiveRewards()
+    {
+        int reward = baseReward + (100 * DataCarrier.SelectedLevelIndex);
+        OwnedCurrency += reward;
+        DataCarrier.PlayerCurrency = OwnedCurrency;
+        OnRewardsGiven?.Invoke();
+        GameWonPanelUI UI = FindObjectOfType<GameWonPanelUI>();
+        UI.SetRewardsText(reward.ToString());
+        Debug.Log("DataCarrier : " + DataCarrier.PlayerCurrency);
+        Debug.Log("InventoryManager : " + OwnedCurrency);
+    }
+    public void ResetCurrency()
+    {
+        OwnedCurrency = 0;
 
+    }
     public bool OnItemBought(ItemData data)
     {
         if (data.itemCost > OwnedCurrency) return false;
@@ -130,5 +148,9 @@ public class InventoryManager : MonoBehaviour
         if (sellableItems == null)
             throw new Exception("NO items to sell :(");
         return sellableItems;
+    }
+    void OnDestroy()
+    {
+        EventBus.OnLevelCleared -= GiveRewards;
     }
 }

@@ -101,6 +101,14 @@ public class GameManager : MonoBehaviour
         StopGame();
 
         DataCarrier.ResetData();
+        if (InventoryManager.Instance != null)
+        {
+            InventoryManager.Instance.ResetCurrency();
+        }
+        if (HUDUI.Instance != null)
+        {
+            HUDUI.Instance.UpdateCurrency();
+        }
     }
     void OnDisable()
     {

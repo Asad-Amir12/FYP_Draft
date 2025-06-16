@@ -12,10 +12,20 @@ public class GameWonPanelUI : MonoBehaviour
     [SerializeField] private Button goBackButton;
 
     // Start is called before the first frame update
+    void Awake()
+    {
+
+    }
     void Start()
     {
         continueButton.onClick.AddListener(OnContinueButtonClicked);
         goBackButton.onClick.AddListener(OnGoBackButtonClicked);
+        // InventoryManager.OnRewardsGiven += UpdateRewardsText;
+    }
+
+    public void UpdateRewardsText()
+    {
+        SetRewardsText(DataCarrier.PlayerCurrency.ToString());
     }
 
     public void SetRewardsText(string text)
@@ -37,6 +47,7 @@ public class GameWonPanelUI : MonoBehaviour
     {
         continueButton.onClick.RemoveListener(OnContinueButtonClicked);
         goBackButton.onClick.RemoveListener(OnGoBackButtonClicked);
+        //     InventoryManager.OnRewardsGiven -= UpdateRewardsText;
     }
 
 

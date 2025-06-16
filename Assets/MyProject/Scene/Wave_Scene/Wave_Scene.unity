@@ -996,6 +996,11 @@ PrefabInstance:
       propertyPath: m_Avatar
       value: 
       objectReference: {fileID: 9000000, guid: b549692f7f04c6c409ff3e2bf2f5e3a7, type: 3}
+    - target: {fileID: 5823611904329092367, guid: 59030b6a2e65acb41879cd9bff958cd9,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6087605395712972786, guid: 59030b6a2e65acb41879cd9bff958cd9,
         type: 3}
       propertyPath: m_Layer
@@ -8941,6 +8946,7 @@ MonoBehaviour:
   sellableItems: {fileID: 0}
   testSO: {fileID: 11400000, guid: 048bfe442e920234f80c981fb48e9a4b, type: 2}
   OwnedCurrency: 0
+  baseReward: 50
 --- !u!1 &1933530836 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1031281030, guid: abc00000000005019336139575674656,

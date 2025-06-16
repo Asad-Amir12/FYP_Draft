@@ -22,6 +22,7 @@ public class EventBus
     public static event Action OnLevelGenerated;
     public static event Action OnPlayerDied;
 
+
     public static void TriggerGameResumed()
     {
         GameResumed?.Invoke();

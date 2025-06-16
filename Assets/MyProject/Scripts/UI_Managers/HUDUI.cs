@@ -34,7 +34,11 @@ public class HUDUI : MonoBehaviour
         PlayerInfo.OnConsumableUsed += UpdateConsumables;
         InventoryManager.OnInventoryUpdated += UpdateCurrency;
         InventoryManager.OnInventoryUpdated += SetUpConsumables;
+        InventoryManager.OnRewardsGiven += UpdateCurrency;
         EventBus.OnPlayerStatsChanged += UpdateHud;
+
+
+
         HealthSlider.maxValue = DataCarrier.PlayerMaxHealth;
         HealthSlider.value = DataCarrier.PlayerMaxHealth;
         StaminaSlider.maxValue = DataCarrier.PlayerMaxStamina;
@@ -116,6 +120,9 @@ public class HUDUI : MonoBehaviour
         PlayerInfo.OnUpdateHealth -= UpdateHealth;
         PlayerInfo.OnConsumableUsed -= UpdateConsumables;
         InventoryManager.OnInventoryUpdated -= UpdateCurrency;
+        InventoryManager.OnInventoryUpdated -= SetUpConsumables;
+        EventBus.OnPlayerStatsChanged -= UpdateHud;
+        InventoryManager.OnRewardsGiven -= UpdateCurrency;
 
     }
     private void UpdateHud()
