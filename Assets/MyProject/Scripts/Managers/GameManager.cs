@@ -79,14 +79,19 @@ public class GameManager : MonoBehaviour
         StopAllCoroutines();
         ResetTimer();
         isGameStarted = true;
-        StartCoroutine(LevelTimer());
         HUDUI.Instance.ToggleHUD(true);
+        HUDUI.Instance.UpdateHud();
+        StartCoroutine(LevelTimer());
+        //  SoundManager.Instance.SetVolume(0.2f);
+        SoundManager.Instance.PlaySoundWithFade(SoundData.LevelBGM, true, 0.2f);
     }
     public void StopGame()
     {
         isGameStarted = false;
         StopCoroutine(LevelTimer());
         HUDUI.Instance.ToggleHUD(false);
+        SoundManager.Instance.StopSoundWithFade(0.2f);
+        //  SoundManager.Instance.SetVolume(100f);
         //HUDUI.Instance.gameObject.SetActive(false);
 
     }

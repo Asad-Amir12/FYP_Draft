@@ -27,6 +27,31 @@ public class PlayerInfo : MonoBehaviour
         EventBus.OnInventoryClosed += OnResumeHUDActions;
 
     }
+    public void StartHealthPickup(int totalHealAmount, float duration)
+    {
+        StartCoroutine(GradualHeal(totalHealAmount, duration));
+    }
+    private IEnumerator GradualHeal(int totalHealAmount, float duration)
+    {
+        int healedSoFar = 0;
+        float elapsed = 0f;
+        float tickRate = 0.1f; // how often to apply healing
+        int ticks = Mathf.CeilToInt(duration / tickRate);
+        float healPerTick = (float)totalHealAmount / ticks;
+
+        while (elapsed < duration && currentHealth < MaxHealth)
+        {
+            int healAmount = Mathf.CeilToInt(healPerTick);
+            currentHealth += healAmount;
+            currentHealth = Mathf.Clamp(currentHealth, 0, MaxHealth);
+            healedSoFar += healAmount;
+
+            OnUpdateHealth?.Invoke(currentHealth);
+            elapsed += tickRate;
+
+            yield return new WaitForSeconds(tickRate);
+        }
+    }
 
     private void OnPlayerHealthChanged(int delta)
     {
@@ -74,6 +99,7 @@ public class PlayerInfo : MonoBehaviour
 
                 Debug.Log("Key 1 pressed");
                 OnConsumableUsed?.Invoke(1);
+                StartHealthPickup(60, 0.5f);
                 StartCoroutine(CoyoteTimer());
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
@@ -81,6 +107,7 @@ public class PlayerInfo : MonoBehaviour
 
                 Debug.Log("Key 2 pressed");
                 OnConsumableUsed?.Invoke(2);
+                StartHealthPickup(MaxHealth, 0.5f);
                 StartCoroutine(CoyoteTimer());
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
@@ -88,6 +115,7 @@ public class PlayerInfo : MonoBehaviour
 
                 Debug.Log("Key 3 pressed");
                 OnConsumableUsed?.Invoke(3);
+                StartHealthPickup(40, 0.5f);
                 StartCoroutine(CoyoteTimer());
             }
             if (Input.GetKeyDown(KeyCode.Alpha4))
@@ -95,6 +123,7 @@ public class PlayerInfo : MonoBehaviour
 
                 Debug.Log("Key 4 pressed");
                 OnConsumableUsed?.Invoke(4);
+                StartHealthPickup(10, 0.5f);
                 StartCoroutine(CoyoteTimer());
             }
 

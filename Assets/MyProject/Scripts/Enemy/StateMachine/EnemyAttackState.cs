@@ -88,7 +88,7 @@ public class EnemyAttackState : EnemyState<EnemyBaseStateMachine>
         int hash = Animator.StringToHash("Attack");
 
         animator.Play(hash);
-
+        Owner.sfxManager.PlaySound(SoundData.Attack);
         if (attackZone != null)
             attackZone.enabled = true;
 
@@ -106,6 +106,7 @@ public class EnemyAttackState : EnemyState<EnemyBaseStateMachine>
 
         int currentHash = comboHashes[comboIndex];
         animator.Play(currentHash);
+        Owner.sfxManager.PlaySound(SoundData.Attack);
         if (attackZone != null)
             attackZone.enabled = true;
 

@@ -44,7 +44,7 @@ public class PlayerAttackState : PlayerBaseState
         OnComboStep?.Invoke(currentComboIndex);
         stateMachine.Animator.Play(
             comboHashes[currentComboIndex]);
-
+        stateMachine.sfxManager.PlaySound(SoundData.Attack);
 
         comboTimer = -0.2f;
         Debug.Log($"Playing combo step {currentComboIndex}");

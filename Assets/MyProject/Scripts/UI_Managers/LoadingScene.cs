@@ -43,9 +43,14 @@ public class LoadingScene : MonoBehaviour
             yield return null;
         }
         loadingCanvas.SetActive(false);
+        if (sceneIndex == 2)
+        {
+
+        }
         if (sceneIndex == 1)
         {
             OnGameSceneLoaded?.Invoke();
+            SoundManager.Instance.PlaySoundWithFade(SoundData.GameBGM, true);
         }
         if (SceneManager.GetActiveScene().buildIndex == 0 && sceneIndex == 0)
         {
@@ -58,6 +63,7 @@ public class LoadingScene : MonoBehaviour
         //gameObject.SetActive(true);
         loadingCanvas.SetActive(true);
         // mainMenuButtons.SetActive(false);
+        SoundManager.Instance.StopSoundWithFade(5f);
         StartCoroutine(nameof(LoadLevelAsync), sceneIndex);
 
     }

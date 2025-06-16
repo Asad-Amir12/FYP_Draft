@@ -52,6 +52,7 @@ public class PlayerMoveState : PlayerBaseState
 
     public override void Exit()
     {
+        stateMachine.sfxManager.StopSound();
         stateMachine.InputReader.OnJumpPerformed -= SwitchToJumpState;
         stateMachine.InputReader.OnRollPerformed -= SwitchToRollState;
     }

@@ -18,6 +18,7 @@ public class PlayerSprintState : PlayerBaseState
         Debug.Log("entered sprint state");
         stateMachine.Velocity.y = Physics.gravity.y;
         stateMachine.Animator.CrossFadeInFixedTime(SprintHash, CrossFadeDuration);
+        stateMachine.sfxManager.PlaySound(SoundData.Walk, true);
         //stateMachine.Animator.Play("Sprint");
 
         stateMachine.InputReader.OnJumpPerformed += SwitchToJumpState;
@@ -61,6 +62,7 @@ public class PlayerSprintState : PlayerBaseState
 
     public override void Exit()
     {
+        stateMachine.sfxManager.StopSound();
         stateMachine.InputReader.OnJumpPerformed -= SwitchToJumpState;
         stateMachine.InputReader.OnRollPerformed -= SwitchToRollState;
     }

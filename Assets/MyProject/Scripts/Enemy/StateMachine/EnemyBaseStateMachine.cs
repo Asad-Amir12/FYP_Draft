@@ -17,6 +17,7 @@ public class EnemyBaseStateMachine : EnemyStateMachine<EnemyBaseStateMachine>
     [SerializeField] public EnemyIdleState IdleState;
     [SerializeField] public EnemyMoveState MoveState;
     [SerializeField] public EnemyAttackState AttackState;
+    [SerializeField] public EnemySfxManager sfxManager;
     public AnimationEvents animationEvents;
     [SerializeField] public EnemyStats enemyStats;
     public new EnemyState<EnemyBaseStateMachine> CurrentState => base.CurrentState;
@@ -83,6 +84,7 @@ public class EnemyBaseStateMachine : EnemyStateMachine<EnemyBaseStateMachine>
     }
     void OnDestroy()
     {
+        //sfxManager.PlaySound(SoundData.EnemyDeath);
         EventBus.OnPlayerAttacked -= OnPlayerAttacked;
         EventBus.OnPlayerDied -= OnPlayerDied;
     }

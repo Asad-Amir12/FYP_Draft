@@ -6,29 +6,30 @@ using UnityEngine.AI;
 using System.Timers;
 public class PlayerIdleJumpState : PlayerBaseState
 {
-    
+
     private readonly int IdleJumpHash = Animator.StringToHash("IdleJump");
     private const float CrossFadeDuration = 0.5f;
     private System.Timers.Timer timer;
 
     private bool jumpPerformed = false;
-  //  private Vector3 initialStateMachineVelocity = Vector3.zero;
+    //  private Vector3 initialStateMachineVelocity = Vector3.zero;
     public PlayerIdleJumpState(PlayerStateMachine stateMachine) : base(stateMachine) { }
 
     public override void Enter()
-    {   
+    {
         //initialStateMachineVelocity =  stateMachine.Velocity;
         StartCheckingAnimation();
-       stateMachine.Animator.Play(IdleJumpHash);
-       // % 1f * stateMachine.Animator.GetCurrentAnimatorStateInfo(0).length
-      
+        stateMachine.Animator.Play(IdleJumpHash);
+        stateMachine.sfxManager.PlaySound(SoundData.Jump);
+        // % 1f * stateMachine.Animator.GetCurrentAnimatorStateInfo(0).length
+
     }
 
     public override void Tick()
     {
         ApplyGravity();
 
-        if (stateMachine.Velocity.y <= 0f && jumpPerformed )
+        if (stateMachine.Velocity.y <= 0f && jumpPerformed)
         {
             stateMachine.SwitchState(new PlayerFallState(stateMachine));
         }
@@ -37,9 +38,13 @@ public class PlayerIdleJumpState : PlayerBaseState
         Move();
     }
 
-    public override void Exit() { }
+    public override void Exit()
+    {
+        stateMachine.sfxManager.StopSound();
+    }
 
-    public void AddJumpForce(){
+    public void AddJumpForce()
+    {
         stateMachine.Velocity = new Vector3(0f, stateMachine.JumpForce, 0f);
     }
 
@@ -59,8 +64,8 @@ public class PlayerIdleJumpState : PlayerBaseState
 
         // Call the function after 0.1 seconds
         Debug.Log("delaYED JUMP ADDED");
-       AddJumpForce();
-       jumpPerformed= true;
+        AddJumpForce();
+        jumpPerformed = true;
     }
 
 

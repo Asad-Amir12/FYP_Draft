@@ -25,6 +25,8 @@ public class PlayerStateMachine : StateMachine
 
     [SerializeField] private SwordHitDetector SwordDetector;
     private AttackComboData attackComboDataCopy;
+    [Header("SFXManager")]
+    [SerializeField] public PlayerSfxManager sfxManager;
     public float SprintSpeed { get; private set; } = 10f;
 
     private void SubscribeToInputActions()
@@ -115,6 +117,7 @@ public class PlayerStateMachine : StateMachine
         PlayerInputManager inputManager = FindObjectOfType<PlayerInputManager>();
         this.enabled = false;
         Animator.Play("Die");
+        sfxManager.PlaySound(SoundData.Death);
         AnimatorStateInfo clipInfo = Animator.GetCurrentAnimatorStateInfo(0);
         yield return new WaitForSeconds(clipInfo.length);
         EventBus.TriggerOnLevelFailed();

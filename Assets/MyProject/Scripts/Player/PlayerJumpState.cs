@@ -5,17 +5,18 @@ public class PlayerJumpState : PlayerBaseState
     private readonly int JumpHash = Animator.StringToHash("RunningJump");
 
     private const float CrossFadeDuration = 0.1f;
-  //  private Vector3 initialStateMachineVelocity = Vector3.zero;
+    //  private Vector3 initialStateMachineVelocity = Vector3.zero;
     public PlayerJumpState(PlayerStateMachine stateMachine) : base(stateMachine) { }
 
     public override void Enter()
-    {   
+    {
         //initialStateMachineVelocity =  stateMachine.Velocity;
         stateMachine.Velocity = new Vector3(stateMachine.Velocity.x, stateMachine.JumpForce, stateMachine.Velocity.z);
-        
-        stateMachine.Animator.CrossFadeInFixedTime(JumpHash, CrossFadeDuration);
 
-       
+        stateMachine.Animator.CrossFadeInFixedTime(JumpHash, CrossFadeDuration);
+        stateMachine.sfxManager.PlaySound(SoundData.Jump);
+
+
     }
 
     public override void Tick()
@@ -31,6 +32,9 @@ public class PlayerJumpState : PlayerBaseState
         Move();
     }
 
-    public override void Exit() { }
+    public override void Exit()
+    {
+        stateMachine.sfxManager.StopSound();
+    }
 }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoundData
 {
-    public const string Attack = "Player Slash";
+    public const string Attack = "PlayerAttack";
     public const string AttackHit = "Player Slash Enemy";
     public const string Jump = "Jump";
     public const string Walk = "Walk";
@@ -15,4 +15,9 @@ public class SoundData
     public const string EnemyWalk = "Enemy Walk";
     public const string EnemyAttack = "Enemy Attack";
     public const string EnemyDeath = "Enemy Death";
+    public const string MenuBGM = "MenuBGM";
+    public const string LevelBGM = "FightBGM";
+    public const string GameBGM = "GameBGM";
+    public const string LevelBGM2 = "FightBGM2";
+
 }

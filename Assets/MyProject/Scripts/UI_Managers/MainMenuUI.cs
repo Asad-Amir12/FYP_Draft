@@ -35,6 +35,10 @@ public class MainMenuUI : MonoBehaviour
         //EventBus.GameResumed += OnMenuControlsPerformed;
 
     }
+    void Start()
+    {
+        SoundManager.Instance.PlaySoundWithFade(SoundData.MenuBGM, true);
+    }
 
     public void LoadGameScene(int index)
     {
@@ -111,17 +115,7 @@ public class MainMenuUI : MonoBehaviour
 
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public void Quit()
     {

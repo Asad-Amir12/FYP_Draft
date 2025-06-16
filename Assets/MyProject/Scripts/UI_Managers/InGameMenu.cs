@@ -30,11 +30,13 @@ public class InGameMenu : MonoBehaviour
     void OnEnable()
     {
         EventBus.TriggerGamePaused();
+        SoundManager.Instance.PlaySoundWithFade(SoundData.MenuBGM, true);
     }
 
     void OnDisable()
     {
         EventBus.TriggerGameResumed();
+        SoundManager.Instance.StopSoundWithFade(5f);
     }
     public void OnResumeButtonClicked()
     {

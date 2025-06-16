@@ -23,6 +23,7 @@ public class EnemyMoveState : EnemyState<EnemyBaseStateMachine>
             // agent.isStopped = false;
             agent.SetDestination(player.position);
             Owner.Animator.Play(MoveStateHash);
+            Owner.sfxManager.PlaySound(SoundData.Walk, true);
         }
     }
 
@@ -49,6 +50,7 @@ public class EnemyMoveState : EnemyState<EnemyBaseStateMachine>
         {
             //agent.isStopped = true;
         }
+        Owner.sfxManager.StopSound();
     }
 
 }

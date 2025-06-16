@@ -125,7 +125,7 @@ public class HUDUI : MonoBehaviour
         InventoryManager.OnRewardsGiven -= UpdateCurrency;
 
     }
-    private void UpdateHud()
+    public void UpdateHud()
     {
         HealthSlider.maxValue = DataCarrier.PlayerMaxHealth;
         HealthSlider.value = DataCarrier.PlayerMaxHealth;
