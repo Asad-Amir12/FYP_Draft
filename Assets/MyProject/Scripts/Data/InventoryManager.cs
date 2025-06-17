@@ -21,6 +21,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private int baseReward = 50;
     public static event Action OnInventoryUpdated;
     public static event Action OnRewardsGiven;
+    public int LastReward = 0;
     void Awake()
     {
 
@@ -84,9 +85,10 @@ public class InventoryManager : MonoBehaviour
         int reward = baseReward + (100 * DataCarrier.SelectedLevelIndex);
         OwnedCurrency += reward;
         DataCarrier.PlayerCurrency = OwnedCurrency;
+        LastReward = reward;
         OnRewardsGiven?.Invoke();
-        GameWonPanelUI UI = FindObjectOfType<GameWonPanelUI>();
-        UI.SetRewardsText(reward.ToString());
+        // GameWonPanelUI UI = FindObjectOfType<GameWonPanelUI>();
+        // UI.SetRewardsText(reward.ToString());
         Debug.Log("DataCarrier : " + DataCarrier.PlayerCurrency);
         Debug.Log("InventoryManager : " + OwnedCurrency);
     }

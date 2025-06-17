@@ -20,16 +20,21 @@ public class GameWonPanelUI : MonoBehaviour
     {
         continueButton.onClick.AddListener(OnContinueButtonClicked);
         goBackButton.onClick.AddListener(OnGoBackButtonClicked);
-        // InventoryManager.OnRewardsGiven += UpdateRewardsText;
+
+    }
+    void OnEnable()
+    {
+        SetRewardsText(InGameUIManager.Instance.LastGivenReward.ToString());
     }
 
     public void UpdateRewardsText()
     {
-        SetRewardsText(DataCarrier.PlayerCurrency.ToString());
+        SetRewardsText(InventoryManager.Instance.LastReward.ToString());
     }
 
     public void SetRewardsText(string text)
     {
+        rewardsText.text = "";
         rewardsText.text = text;
     }
 

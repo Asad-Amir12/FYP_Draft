@@ -54,6 +54,7 @@ public class MainMenuUI : MonoBehaviour
         if (menu)
         {
             Destroy(menu);
+            menu = null;
         }
         menu = Instantiate(inGameMenu);
 

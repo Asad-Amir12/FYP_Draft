@@ -8,13 +8,14 @@ public class InGameUIManager : MonoBehaviour
     [SerializeField] private GameObject GameWonPanel;
 
     [SerializeField] private GameObject GameLostPanel;
-
+    public int LastGivenReward = 0;
     public static InGameUIManager Instance { get; private set; }
     void Awake()
     {
         Instance = this;
         EventBus.OnLevelFailed += ShowGameLostPanel;
         EventBus.OnLevelCleared += ShowGameWonPanel;
+        InventoryManager.OnRewardsGiven += () => LastGivenReward = InventoryManager.Instance.LastReward;
     }
 
     public void ShowGameWonPanel()
@@ -43,6 +44,7 @@ public class InGameUIManager : MonoBehaviour
     {
         EventBus.OnLevelFailed -= ShowGameWonPanel;
         EventBus.OnLevelFailed -= ShowGameLostPanel;
+        InventoryManager.OnRewardsGiven -= () => LastGivenReward = InventoryManager.Instance.LastReward;
     }
 }
 

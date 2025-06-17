@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerInfo : MonoBehaviour
 {
     // [SerializeField] private Slider healthSlider;
-    [SerializeField] private float invincibilityDuration = 0.3f;
+    [SerializeField] private float invincibilityDuration = 0.6f;
     private bool isInvincible = false;
 
     private int MaxHealth;

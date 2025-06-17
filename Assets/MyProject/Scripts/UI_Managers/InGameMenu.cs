@@ -47,7 +47,7 @@ public class InGameMenu : MonoBehaviour
     public void OnReturnToMainMenuButtonCliked()
     {
         Destroy(this.gameObject);
-        LoadingScene.Instance.LoadScene(1);
+        LoadingScene.Instance.LoadScene(0);
         EventBus.TriggerReturnToMainMenu();
 
 

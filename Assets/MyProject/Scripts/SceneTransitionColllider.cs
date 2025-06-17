@@ -9,7 +9,7 @@ public class SceneTransitionColllider : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            SceneManager.LoadScene("Wave_Scene");
+            LoadingScene.Instance.LoadScene(2);
         }
     }
 }

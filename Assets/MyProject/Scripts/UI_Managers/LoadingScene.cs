@@ -45,7 +45,7 @@ public class LoadingScene : MonoBehaviour
         loadingCanvas.SetActive(false);
         if (sceneIndex == 2)
         {
-
+            OnGameSceneLoaded?.Invoke();
         }
         if (sceneIndex == 1)
         {
@@ -54,6 +54,7 @@ public class LoadingScene : MonoBehaviour
         }
         if (SceneManager.GetActiveScene().buildIndex == 0 && sceneIndex == 0)
         {
+
             OnReturnToMainMenu?.Invoke();
         }
 
