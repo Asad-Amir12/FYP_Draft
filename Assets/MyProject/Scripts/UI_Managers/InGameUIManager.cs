@@ -15,14 +15,18 @@ public class InGameUIManager : MonoBehaviour
         Instance = this;
         EventBus.OnLevelFailed += ShowGameLostPanel;
         EventBus.OnLevelCleared += ShowGameWonPanel;
-        InventoryManager.OnRewardsGiven += () => LastGivenReward = InventoryManager.Instance.LastReward;
+        InventoryManager.OnRewardsGiven += SetRewardValue;
     }
 
+    public void SetRewardValue()
+    {
+        LastGivenReward = InventoryManager.Instance.LastReward;
+    }
     public void ShowGameWonPanel()
     {
 
         GameWonPanel.SetActive(true);
-        EventBus.OnLevelFailed -= ShowGameWonPanel;
+        EventBus.OnLevelCleared -= ShowGameWonPanel;
     }
     public void HideGameWonPanel()
     {
@@ -42,9 +46,9 @@ public class InGameUIManager : MonoBehaviour
     }
     void OnDestroy()
     {
-        EventBus.OnLevelFailed -= ShowGameWonPanel;
+        EventBus.OnLevelCleared -= ShowGameWonPanel;
         EventBus.OnLevelFailed -= ShowGameLostPanel;
-        InventoryManager.OnRewardsGiven -= () => LastGivenReward = InventoryManager.Instance.LastReward;
+        InventoryManager.OnRewardsGiven -= SetRewardValue;
     }
 }
 
