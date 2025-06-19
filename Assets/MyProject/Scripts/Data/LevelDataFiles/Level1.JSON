@@ -1,24 +1,24 @@
 {
     "concurrentEnemyCount": 4,
-    "timeBetweenSpawns": 0.2,
+    "timeBetweenSpawns": 0.5,
     "enemyData": [
         {
             "enemyType": "Creep",
-            "enemyCount": 1,
-            "maxHealth": 10,
+            "enemyCount": 5,
+            "maxHealth": 30,
             "invincibilityDuration": 0.5,
             "baseDamage": 5,
             "defense": 1.0,
-            "movementMultiplier": 1.2
+            "movementMultiplier": 1.0
         },
         {
             "enemyType": "Demon",
-            "enemyCount": 1,
-            "maxHealth": 10,
+            "enemyCount": 3,
+            "maxHealth": 40,
             "invincibilityDuration": 1.0,
-            "baseDamage": 20,
-            "defense": 2.5,
-            "movementMultiplier": 0.8
+            "baseDamage": 10,
+            "defense": 1.5,
+            "movementMultiplier": 1.0
         }
     ]
 }

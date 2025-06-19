@@ -1,24 +1,33 @@
 {
-    "concurrentEnemyCount": 4,
-    "timeBetweenSpawns": 0.2,
+    "concurrentEnemyCount": 5,
+    "timeBetweenSpawns": 0.5,
     "enemyData": [
         {
-            "enemyType": "Demon",
-            "enemyCount": 7,
-            "maxHealth": 160,
-            "invincibilityDuration": 1.0,
-            "baseDamage": 22,
-            "defense": 2.6,
-            "movementMultiplier": 0.85
+            "enemyType": "Creep",
+            "enemyCount": 15,
+            "maxHealth": 70,
+            "invincibilityDuration": 0.5,
+            "baseDamage": 15,
+            "defense": 1.3,
+            "movementMultiplier": 1.5
         },
         {
             "enemyType": "Demon",
-            "enemyCount": 3,
-            "maxHealth": 200,
-            "invincibilityDuration": 1.3,
-            "baseDamage": 28,
-            "defense": 3.2,
-            "movementMultiplier": 0.75
+            "enemyCount": 10,
+            "maxHealth": 100,
+            "invincibilityDuration": 1.0,
+            "baseDamage": 23,
+            "defense": 2.0,
+            "movementMultiplier": 1.2
+        },
+        {
+            "enemyType": "BallDemon",
+            "enemyCount": 5,
+            "maxHealth": 150,
+            "invincibilityDuration": 1.5,
+            "baseDamage": 32,
+            "defense": 2.3,
+            "movementMultiplier": 1.2
         }
     ]
 }
