@@ -5,7 +5,20 @@ using UnityEngine;
 public class EnemySfxManager : MonoBehaviour
 {
     [SerializeField] private AudioSource audioSource;
-
+    void Start()
+    {
+        EventBus.GamePaused += audioSource.Pause;
+        EventBus.GameResumed += audioSource.UnPause;
+    }
+    void OnDestroy()
+    {
+        EventBus.GamePaused -= audioSource.Pause;
+        EventBus.GameResumed -= audioSource.UnPause;
+    }
+    void SetVolume(float volume)
+    {
+        audioSource.volume = volume;
+    }
     public void PlaySound(string audioClipName, bool loop = false)
     {
         audioSource.Stop();

@@ -19,7 +19,7 @@ public class GameLostPanelUI : MonoBehaviour
     void OnReturnButtonClicked()
     {
         gameObject.SetActive(false);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        LoadingScene.Instance.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
 
     }
 

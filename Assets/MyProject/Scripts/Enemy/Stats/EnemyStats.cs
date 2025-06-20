@@ -12,6 +12,7 @@ public class EnemyStats : MonoBehaviour
     [Header("Combat Settings")]
     [SerializeField] public int baseDamage = 10;
     [SerializeField] public float defense = 0f;      // Flat damage reduction or multiplier
+    [SerializeField] public GameObject deathVFX;
 
     public int currentHealth;
     // Exposed properties if you need to read them
@@ -74,6 +75,10 @@ public class EnemyStats : MonoBehaviour
     {
         OnDeath?.Invoke();
         EventBus.TriggerOnEnemyKilled();
+        // deathVFX.SetActive(true);
+        // deathVFX.transform.parent = null;
+        // deathVFX.transform.position = transform.position + Vector3.up * 0.5f;
+
         // default: destroy gameobject—override in subclasses if needed
         Destroy(gameObject);
     }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InGameMenu : MonoBehaviour
 {
@@ -30,13 +31,22 @@ public class InGameMenu : MonoBehaviour
     void OnEnable()
     {
         EventBus.TriggerGamePaused();
-        SoundManager.Instance.PlaySoundWithFade(SoundData.MenuBGM, true);
+        SoundManager.Instance.SetVolume(1f);
+        SoundManager.Instance.PlaySound(SoundData.MenuBGM, true);
     }
 
     void OnDisable()
     {
         EventBus.TriggerGameResumed();
         SoundManager.Instance.StopSoundWithFade(5f);
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+            SoundManager.Instance.PlaySoundWithFade(SoundData.GameBGM, true);
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            SoundManager.Instance.SetVolume(0.2f);
+            SoundManager.Instance.PlaySoundWithFade(SoundData.LevelBGM, true, 0.2f);
+
+        }
     }
     public void OnResumeButtonClicked()
     {

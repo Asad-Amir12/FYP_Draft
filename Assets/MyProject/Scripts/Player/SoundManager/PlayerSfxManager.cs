@@ -7,6 +7,17 @@ public class PlayerSfxManager : MonoBehaviour
 
     [SerializeField] private AudioSource audioSource;
 
+    void Start()
+    {
+        EventBus.GamePaused += audioSource.Pause;
+        EventBus.GameResumed += audioSource.UnPause;
+    }
+    void OnDestroy()
+    {
+        EventBus.GamePaused -= audioSource.Pause;
+        EventBus.GameResumed -= audioSource.UnPause;
+    }
+
     public void PlaySound(string audioClipName, bool loop = false)
     {
         audioSource.Stop();

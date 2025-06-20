@@ -41,12 +41,12 @@ public class GameWonPanelUI : MonoBehaviour
     private void OnContinueButtonClicked()
     {
         gameObject.SetActive(false);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        LoadingScene.Instance.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     private void OnGoBackButtonClicked()
     {
         gameObject.SetActive(false);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        LoadingScene.Instance.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
     void OnDestroy()
     {

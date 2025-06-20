@@ -20,6 +20,7 @@ public class EnemyBaseStateMachine : EnemyStateMachine<EnemyBaseStateMachine>
     [SerializeField] public EnemySfxManager sfxManager;
     public AnimationEvents animationEvents;
     [SerializeField] public EnemyStats enemyStats;
+    [SerializeField] private GameObject deathVFX;
     public new EnemyState<EnemyBaseStateMachine> CurrentState => base.CurrentState;
 
     private void InitializeStates()
@@ -84,7 +85,18 @@ public class EnemyBaseStateMachine : EnemyStateMachine<EnemyBaseStateMachine>
     }
     void OnDestroy()
     {
-        //sfxManager.PlaySound(SoundData.EnemyDeath);
+        var vfxInstance = Instantiate(
+       deathVFX,
+       transform.position,
+       Quaternion.identity
+   );
+
+        // 2) (Optional) Detach from parent so it persists
+        vfxInstance.transform.parent = null;
+
+        // 3) (Optional) Destroy the VFX instance after its duration
+        //    You need to know or query its duration; here we’ll assume 2 seconds:
+        Destroy(vfxInstance, 5f);
         EventBus.OnPlayerAttacked -= OnPlayerAttacked;
         EventBus.OnPlayerDied -= OnPlayerDied;
     }

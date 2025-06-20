@@ -36,7 +36,8 @@ public class HUDUI : MonoBehaviour
         InventoryManager.OnInventoryUpdated += SetUpConsumables;
         InventoryManager.OnRewardsGiven += UpdateCurrency;
         EventBus.OnPlayerStatsChanged += UpdateHud;
-
+        EventBus.ReturnToMainMenu += DisableHud;
+        // LoadingScene.OnGameSceneLoaded += EnableHud;
 
 
         HealthSlider.maxValue = DataCarrier.PlayerMaxHealth;
@@ -46,6 +47,12 @@ public class HUDUI : MonoBehaviour
         CurrencyText.text = DataCarrier.PlayerCurrency.ToString();
         ResetCount();
     }
+    void DisableHud()
+    {
+        EventBus.ReturnToMainMenu -= DisableHud;
+        Destroy(gameObject);
+    }
+
 
     void ResetCount()
     {

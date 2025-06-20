@@ -118,6 +118,9 @@ public class StatUpgradeUI : MonoBehaviour
                         break;
                 }
             }
+            foreach (var item in statItemUIs)
+                item.value = 0;
+            totalStatsInCart = 0;
             //playerStats.Increase(type);
             RefreshAllStats();
             return true;

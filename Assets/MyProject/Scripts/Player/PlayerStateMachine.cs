@@ -19,6 +19,8 @@ public class PlayerStateMachine : StateMachine
     public PlayerMoveState moveState;
     public bool IsAttacking = false;
     private bool animLocked = false;
+    private bool animInvincible = false;
+    private const float PostHitCooldown = 3f;
 
     [Header("Combat Data")]
     [SerializeField] private AttackComboData attackComboData;
@@ -86,7 +88,11 @@ public class PlayerStateMachine : StateMachine
     }
     void OnHit(int foo)
     {
-        if (animLocked) return;
+        // Only guard by invincibility, not animLocked
+        if (animInvincible) return;
+
+        animInvincible = true;
+        StartCoroutine(InvincibilityTimer());
         animLocked = true;
 
         currentState?.Exit();
@@ -96,29 +102,39 @@ public class PlayerStateMachine : StateMachine
     }
     IEnumerator LockAnimator()
     {
-        float clipLength = 0f;
-        foreach (var clip in Animator.runtimeAnimatorController.animationClips)
-        {
-            if (clip.name == "GetHit")
-            {
-                clipLength = clip.length;
-                break;
-            }
-        }
+        // float clipLength = 0f;
+        // foreach (var clip in Animator.runtimeAnimatorController.animationClips)
+        // {
+        //     if (clip.name == "GetHit")
+        //     {
+        //         clipLength = clip.length;
+        //         break;
+        //     }
+        // }
 
         // optionally add your cross‑fade time if you want more precise timing
-        yield return new WaitForSeconds(clipLength);
+        yield return new WaitForSeconds(0.5f);
 
         animLocked = false;
+        SwitchState(moveState);
+        // yield return new WaitForSeconds(3f);
+    }
+    IEnumerator InvincibilityTimer()
+    {
+        yield return new WaitForSeconds(PostHitCooldown);
+        animInvincible = false;
     }
     IEnumerator WaitForDeathAnimation()
     {
 
         PlayerInputManager inputManager = FindObjectOfType<PlayerInputManager>();
         this.enabled = false;
+        currentState?.Exit();
+        //EventBus.OnPlayerHealthChanged -= OnHit;
         Animator.Play("Die");
         sfxManager.PlaySound(SoundData.Death);
         AnimatorStateInfo clipInfo = Animator.GetCurrentAnimatorStateInfo(0);
+        yield return null;
         yield return new WaitForSeconds(clipInfo.length);
         EventBus.TriggerOnLevelFailed();
         if (InputReader)
